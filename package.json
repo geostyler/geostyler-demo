@@ -13,7 +13,7 @@
     "@types/react-dom": "16.0.9",
     "antd": "3.10.4",
     "geostyler": "0.19.0-0",
-    "geostyler-geojson-parser": "0.4.5",
+    "geostyler-geojson-parser": "0.4.6",
     "geostyler-sld-parser": "0.17.2",
     "geostyler-wfs-parser": "0.7.3",
     "geostyler-style": "0.14.2",
