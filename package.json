@@ -14,7 +14,7 @@
     "antd": "3.10.8",
     "geostyler": "0.19.0",
     "geostyler-geojson-parser": "0.4.6",
-    "geostyler-sld-parser": "0.17.2",
+    "geostyler-sld-parser": "0.17.3",
     "geostyler-wfs-parser": "0.7.3",
     "geostyler-style": "0.14.2",
     "moment": "2.22.2",
