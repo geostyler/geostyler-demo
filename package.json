@@ -9,7 +9,7 @@
     "typescript": "3.1.6",
     "@types/jest": "23.3.9",
     "@types/node": "10.12.10",
-    "@types/react": "16.4.18",
+    "@types/react": "16.7.8",
     "@types/react-dom": "16.0.11",
     "antd": "3.10.9",
     "geostyler": "0.23.0",
