@@ -3,8 +3,10 @@ import * as React from 'react';
 import 'antd/dist/antd.css';
 
 import {
+  Form,
   LocaleProvider,
-  Radio
+  Radio,
+  Switch
 } from 'antd';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -35,6 +37,7 @@ import {
   Style,
   StyleLoader
 } from 'geostyler';
+import FormItem from 'antd/lib/form/FormItem';
 
 // i18n
 export interface AppLocale extends Locale {
@@ -53,9 +56,11 @@ interface AppProps extends Partial<DefaultAppProps> {
 
 // state
 interface AppState {
-  style?: GsStyle;
+  style: GsStyle;
   data?: GsData;
-  locale?: AppLocale;
+  locale: AppLocale;
+  compact: boolean;
+  ruleRendererType?: 'SLD' | 'OpenLayers',
 }
 
 class App extends React.Component<AppProps, AppState> {
@@ -64,6 +69,8 @@ class App extends React.Component<AppProps, AppState> {
     super(props);
     this.state = {
       locale: GsLocale.en_US,
+      compact: true,
+      ruleRendererType: 'OpenLayers',
       style: {
         name: 'Demo Style',
         rules: [{
@@ -79,7 +86,7 @@ class App extends React.Component<AppProps, AppState> {
 
   public static componentName: string = 'App';
 
-  private onLangChange = (e: any) => {
+  onLangChange = (e: any) => {
     switch (e.target.value) {
       case 'en':
         moment.locale('en');
@@ -96,57 +103,100 @@ class App extends React.Component<AppProps, AppState> {
     }
   }
 
+  onRuleRendererChange = (e: any) => {
+    const ruleRendererType = e.target.value;
+    this.setState({ruleRendererType});
+  }
+
+  onCompactSwitchChange = (compact: boolean) => {
+    this.setState({compact});
+  }
+
   public render() {
-    const { locale } = this.state;
+    const {
+      locale,
+      style,
+      data,
+      compact,
+      ruleRendererType
+    } = this.state;
     return (
       <div className="App">
         <LocaleProvider locale={locale}>
           <div>
             <header className="gs-header">
-              <RadioGroup
-                className="language-select"
-                onChange={this.onLangChange}
-                defaultValue="en"
-              >
-                <RadioButton value="en">EN</RadioButton>
-                <RadioButton value="de">DE</RadioButton>
-              </RadioGroup>
               <h1 className="App-title">GeoStyler</h1>
             </header>
-            <div className="settings">
-              <StyleLoader
-                parsers={[
-                  SldStyleParser
-                ]}
-                onStyleRead={(style: GsStyle) => {
-                  this.setState({style});
-                }}
-              />
-              <DataLoader
-                parsers={[
-                  GeoJsonParser,
-                  GeoWfsParser
-                ]}
-                onDataRead={(data: GsData) => {
-                  this.setState({data});
-                }}
-              />
-            </div>
+            <Form layout="inline" className="gs-settings">
+              <Form.Item label="Language">
+                <RadioGroup
+                  className="language-select"
+                  onChange={this.onLangChange}
+                  defaultValue="en"
+                >
+                  <RadioButton value="en">EN</RadioButton>
+                  <RadioButton value="de">DE</RadioButton>
+                </RadioGroup>
+              </Form.Item>
+              <Form.Item label="Compact">
+                <Switch
+                  checked={compact}
+                  onChange={this.onCompactSwitchChange}
+                />
+              </Form.Item>
+              <Form.Item label="Symbolizer Renderer">
+                <RadioGroup
+                  className="language-select"
+                  onChange={this.onRuleRendererChange}
+                  value={ruleRendererType}
+                >
+                  <RadioButton value="OpenLayers">OpenLayers</RadioButton>
+                  <RadioButton value="SLD">SLD</RadioButton>
+                </RadioGroup>
+              </Form.Item>
+              <Form.Item>
+                <StyleLoader
+                  parsers={[
+                    SldStyleParser
+                  ]}
+                  onStyleRead={(style: GsStyle) => {
+                    this.setState({style});
+                  }}
+                />
+              </Form.Item>
+              <Form.Item>
+                <DataLoader
+                  parsers={[
+                    GeoJsonParser,
+                    GeoWfsParser
+                  ]}
+                  onDataRead={(data: GsData) => {
+                    this.setState({data});
+                  }}
+                />
+              </Form.Item>
+            </Form>
             <div className="main-content">
               <div className="gui-wrapper">
                 <h2>Graphical Editor</h2>
                 <Style
-                  style={this.state.style}
-                  data={this.state.data}
+                  style={style}
+                  data={data}
                   onStyleChange={(style: GsStyle) => {
                     this.setState({style});
+                  }}
+                  compact={compact}
+                  ruleRendererType={ruleRendererType}
+                  sldRendererProps={{
+                    wmsBaseUrl: 'https://ows.terrestris.de/geoserver/wms',
+                    layer: 'terrestris:bundeslaender'
                   }}
                 />
               </div>
               <div className="editor-wrapper">
                 <h2>Code Editor</h2>
                 <CodeEditor
-                  style={this.state.style}
+                  style={style}
                   parsers={[
                     SldStyleParser
                   ]}
