@@ -70,7 +70,7 @@ class App extends React.Component<AppProps, AppState> {
     this.state = {
       locale: GsLocale.en_US,
       compact: true,
-      ruleRendererType: 'OpenLayers',
+      ruleRendererType: 'SLD',
       style: {
         name: 'Demo Style',
         rules: [{
@@ -200,6 +200,7 @@ class App extends React.Component<AppProps, AppState> {
                   parsers={[
                     SldStyleParser
                   ]}
+                  defaultParser={SldStyleParser}
                   onStyleChange={(style: GsStyle) => {
                     this.setState({style});
                   }}
