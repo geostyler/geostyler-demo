@@ -5,3 +5,6 @@
 GeoStyler Demo App
 
 [Go To Live Demo](https://terrestris.github.io/geostyler-demo/)
+
+### Issues
+Please provide related issues here https://github.com/terrestris/geostyler/issues
