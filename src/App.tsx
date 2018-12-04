@@ -204,6 +204,8 @@ class App extends React.Component<AppProps, AppState> {
                   onStyleChange={(style: GsStyle) => {
                     this.setState({style});
                   }}
+                  showSaveButton={true}
+                  showCopyButton={true}
                 />
               </div>
             </div>
