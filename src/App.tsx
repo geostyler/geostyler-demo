@@ -14,6 +14,7 @@ const RadioGroup = Radio.Group;
 import { Locale } from 'antd/lib/locale-provider/index';
 import * as moment from 'moment';
 import 'moment/locale/de';
+import 'moment/locale/es';
 
 import {
   Style as GsStyle,
@@ -96,6 +97,10 @@ class App extends React.Component<AppProps, AppState> {
         moment.locale('de');
         this.setState({locale: GsLocale.de_DE});
         break;
+      case 'es':
+        moment.locale('es');
+        this.setState({locale: GsLocale.es_ES});
+        break;
       default:
         moment.locale('en');
         this.setState({locale: GsLocale.en_US});
@@ -136,6 +141,7 @@ class App extends React.Component<AppProps, AppState> {
                 >
                   <RadioButton value="en">EN</RadioButton>
                   <RadioButton value="de">DE</RadioButton>
+                  <RadioButton value="es">ES</RadioButton>
                 </RadioGroup>
               </Form.Item>
               <Form.Item label="Compact">
