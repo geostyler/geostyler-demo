@@ -1,42 +1,67 @@
-#root {
-  height: 100%;
-}
-
-.App {
-  text-align: center;
+.app {
+  font-family: 'Aldrich', sans-serif;
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.main-content {
-  display: flex;
-  flex: 1;
-}
-
-.gui-wrapper {
-  flex: 2;
-}
-
-.editor-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  max-width: 34%;
+  width: 100%;
 }
 
 .gs-header {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-}
-
-.gs-header .App-title {
-  flex-grow: 1;
+  color: #162162;
+  background-color: #ffe999;
+  font-size: 3em;
+  padding-bottom: 10px;
+  text-align: center;
 }
 
 .gs-settings {
-  background-color: lightgray;
+  background-color: #ffde66;
+  border-bottom: 3px solid #ffc800;
+}
+
+.gs-settings .ant-switch-checked {
+  background-color: #162162;
+}
+
+.gs-settings .ant-form-item-label,
+.gs-settings .ant-form-item-children {
+  color: #162162;
+  font-family: 'Aldrich', sans-serif;
+}
+
+.logo {
+  height: 60px;
+}
+
+.main-content {
+  color: #162162;
+  display: flex;
+  flex: 1;
+}
+
+.maint-content h2 {
+  color: #162162;
+}
+
+.gui-wrapper {
+  margin: 10px 5px 10px 10px;;
+  background-color: #e8e8e8;
+  flex: 3;
+}
+
+.gui-wrapper h2,
+.editor-wrapper h2 {
+  text-align: center;
+  color: #162162;
+}
+
+.editor-wrapper {
+  margin: 10px 10px 10px 5px;
+  background-color: #e8e8e8;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  max-width: 34%;
 }
 
 /* Small devices (landscape phones, less than 768px) */
@@ -53,7 +78,4 @@
     max-width: 95%;
   }
 
-  header > a {
-    margin-right: 10px;
-  }
 }

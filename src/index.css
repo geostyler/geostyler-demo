@@ -5,5 +5,43 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Aldrich', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+body > header,
+body > footer {
+  height: 50px;
+}
+
+body > header {
+  padding: 10px;
+  font-size: 1.5em;
+  background-color: #ffe999;
+}
+
+body > footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #bec4e3;
+  border-top: 3px solid #162162;
+  text-align: center;
+}
+
+body > footer a {
+  color: #162162;
+}
+
+body > header a {
+  float: right;
+  margin-left: 5px;
+  text-decoration: none;
+  color: #162162;
+}
+
+#root {
+  font-family: 'Aldrich', sans-serif;
+  flex: 1;
 }
