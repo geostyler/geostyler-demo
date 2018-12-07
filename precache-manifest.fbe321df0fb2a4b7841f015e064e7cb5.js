@@ -4,8 +4,8 @@ self.__precacheManifest = [
     "url": "./static/media/aldrich-v8-latin-regular.c0a64bc6.eot"
   },
   {
-    "revision": "540f42ffb28631595fe0",
-    "url": "./static/css/main.ea6e10d9.chunk.css"
+    "revision": "397daf21295fdd609df6",
+    "url": "./static/css/main.8d61aded.chunk.css"
   },
   {
     "revision": "08310f05065d04a9f7120417711328c9",
@@ -24,8 +24,8 @@ self.__precacheManifest = [
     "url": "./static/media/logo.b2b95d68.svg"
   },
   {
-    "revision": "540f42ffb28631595fe0",
-    "url": "./static/js/main.540f42ff.chunk.js"
+    "revision": "397daf21295fdd609df6",
+    "url": "./static/js/main.397daf21.chunk.js"
   },
   {
     "revision": "f2ba1dee94e3a43dec8ffdcc6b6d1e46",
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "./static/css/1.1283cfcb.chunk.css"
   },
   {
-    "revision": "76c42d776da468177b41bf86e6b5c984",
+    "revision": "780df9a93e02d2ad1a2c37246f9ee737",
     "url": "./index.html"
   }
 ];
