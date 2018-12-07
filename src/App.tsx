@@ -16,6 +16,8 @@ import * as moment from 'moment';
 import 'moment/locale/de';
 import 'moment/locale/es';
 
+import logo from './assets/logo.svg';
+
 import {
   Style as GsStyle,
   StyleParser as GsStyleParser
@@ -126,98 +128,99 @@ class App extends React.Component<AppProps, AppState> {
       ruleRendererType
     } = this.state;
     return (
-      <div className="App">
-        <LocaleProvider locale={locale}>
-          <div>
-            <header className="gs-header">
-              <h1 className="App-title">GeoStyler</h1>
-            </header>
-            <Form layout="inline" className="gs-settings">
-              <Form.Item label="Language">
-                <RadioGroup
-                  className="language-select"
-                  onChange={this.onLangChange}
-                  defaultValue="en"
-                >
-                  <RadioButton value="en">EN</RadioButton>
-                  <RadioButton value="de">DE</RadioButton>
-                  <RadioButton value="es">ES</RadioButton>
-                </RadioGroup>
-              </Form.Item>
-              <Form.Item label="Compact">
-                <Switch
-                  checked={compact}
-                  onChange={this.onCompactSwitchChange}
-                />
-              </Form.Item>
-              <Form.Item label="Symbolizer Renderer">
-                <RadioGroup
-                  className="language-select"
-                  onChange={this.onRuleRendererChange}
-                  value={ruleRendererType}
-                >
-                  <RadioButton value="OpenLayers">OpenLayers</RadioButton>
-                  <RadioButton value="SLD">SLD</RadioButton>
-                </RadioGroup>
-              </Form.Item>
-              <Form.Item>
-                <StyleLoader
-                  parsers={[
-                    SldStyleParser
-                  ]}
-                  onStyleRead={(style: GsStyle) => {
-                    this.setState({style});
-                  }}
-                />
-              </Form.Item>
-              <Form.Item>
-                <DataLoader
-                  parsers={[
-                    GeoJsonParser,
-                    GeoWfsParser
-                  ]}
-                  onDataRead={(data: GsData) => {
-                    this.setState({data});
-                  }}
-                />
-              </Form.Item>
-            </Form>
-            <div className="main-content">
-              <div className="gui-wrapper">
-                <h2>Graphical Editor</h2>
-                <Style
-                  style={style}
-                  data={data}
-                  onStyleChange={(style: GsStyle) => {
-                    this.setState({style});
-                  }}
-                  compact={compact}
-                  ruleRendererType={ruleRendererType}
-                  sldRendererProps={{
-                    wmsBaseUrl: 'https://ows.terrestris.de/geoserver/wms',
-                    layer: 'terrestris:bundeslaender'
-                  }}
-                />
-              </div>
-              <div className="editor-wrapper">
-                <h2>Code Editor</h2>
-                <CodeEditor
-                  style={style}
-                  parsers={[
-                    SldStyleParser
-                  ]}
-                  defaultParser={SldStyleParser}
-                  onStyleChange={(style: GsStyle) => {
-                    this.setState({style});
-                  }}
-                  showSaveButton={true}
-                  showCopyButton={true}
-                />
-              </div>
+      <LocaleProvider locale={locale}>
+        <div className="app">
+          <header className="gs-header">
+            <span className="logo-title">
+              <img className="logo" src={logo} alt="logo"/>
+              <span className="app-title">GeoStyler</span>
+            </span>
+          </header>
+          <Form layout="inline" className="gs-settings">
+            <Form.Item label="Language">
+              <RadioGroup
+                className="language-select"
+                onChange={this.onLangChange}
+                defaultValue="en"
+              >
+                <RadioButton value="en">EN</RadioButton>
+                <RadioButton value="de">DE</RadioButton>
+                <RadioButton value="es">ES</RadioButton>
+              </RadioGroup>
+            </Form.Item>
+            <Form.Item label="Compact">
+              <Switch
+                checked={compact}
+                onChange={this.onCompactSwitchChange}
+              />
+            </Form.Item>
+            <Form.Item label="Symbolizer Renderer">
+              <RadioGroup
+                className="language-select"
+                onChange={this.onRuleRendererChange}
+                value={ruleRendererType}
+              >
+                <RadioButton value="OpenLayers">OpenLayers</RadioButton>
+                <RadioButton value="SLD">SLD</RadioButton>
+              </RadioGroup>
+            </Form.Item>
+            <Form.Item>
+              <StyleLoader
+                parsers={[
+                  SldStyleParser
+                ]}
+                onStyleRead={(style: GsStyle) => {
+                  this.setState({style});
+                }}
+              />
+            </Form.Item>
+            <Form.Item>
+              <DataLoader
+                parsers={[
+                  GeoJsonParser,
+                  GeoWfsParser
+                ]}
+                onDataRead={(data: GsData) => {
+                  this.setState({data});
+                }}
+              />
+            </Form.Item>
+          </Form>
+          <div className="main-content">
+            <div className="gui-wrapper">
+              <h2>Graphical Editor</h2>
+              <Style
+                style={style}
+                data={data}
+                onStyleChange={(style: GsStyle) => {
+                  this.setState({style});
+                }}
+                compact={compact}
+                ruleRendererType={ruleRendererType}
+                sldRendererProps={{
+                  wmsBaseUrl: 'https://ows.terrestris.de/geoserver/wms',
+                  layer: 'terrestris:bundeslaender'
+                }}
+              />
+            </div>
+            <div className="editor-wrapper">
+              <h2>Code Editor</h2>
+              <CodeEditor
+                style={style}
+                parsers={[
+                  SldStyleParser
+                ]}
+                defaultParser={SldStyleParser}
+                onStyleChange={(style: GsStyle) => {
+                  this.setState({style});
+                }}
+                showSaveButton={true}
+                showCopyButton={true}
+              />
             </div>
           </div>
-        </LocaleProvider>
-      </div>
+        </div>
+      </LocaleProvider>
     );
   }
 }
