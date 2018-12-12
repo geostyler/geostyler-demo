@@ -6,7 +6,7 @@
     "@types/jest": "23.3.10",
     "@types/node": "10.12.12",
     "@types/react-dom": "16.0.11",
-    "@types/react": "16.7.13",
+    "@types/react": "16.7.14",
     "antd": "3.10.9",
     "geostyler-geojson-parser": "0.4.6",
     "geostyler-sld-parser": "0.18.0",
