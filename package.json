@@ -4,7 +4,7 @@
   "homepage": ".",
   "dependencies": {
     "@types/jest": "23.3.10",
-    "@types/node": "10.12.14",
+    "@types/node": "10.12.15",
     "@types/react-dom": "16.0.11",
     "@types/react": "16.7.17",
     "antd": "3.11.2",
