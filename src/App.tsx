@@ -40,12 +40,13 @@ import {
   Style,
   StyleLoader
 } from 'geostyler';
-import FormItem from 'antd/lib/form/FormItem';
 
 // i18n
 export interface AppLocale extends Locale {
   graphicalEditor: string;
   codeEditor: string;
+  language: string;
+  compact: string;
 }
 
 // default props
@@ -71,7 +72,13 @@ class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
     this.state = {
-      locale: GsLocale.en_US,
+      locale: {
+        graphicalEditor: 'Graphical Editor',
+        codeEditor: 'Code Editor',
+        language: 'Language',
+        compact: 'Compact',
+        ...GsLocale.en_US
+      },
       compact: true,
       ruleRendererType: 'SLD',
       style: {
@@ -93,19 +100,51 @@ class App extends React.Component<AppProps, AppState> {
     switch (e.target.value) {
       case 'en':
         moment.locale('en');
-        this.setState({locale: GsLocale.en_US});
+        this.setState({
+          locale: {
+            graphicalEditor: 'Graphical Editor',
+            codeEditor: 'Code Editor',
+            language: 'Language',
+            compact: 'Compact',
+            ...GsLocale.en_US
+          }
+        });
         break;
       case 'de':
         moment.locale('de');
-        this.setState({locale: GsLocale.de_DE});
+        this.setState({
+          locale: {
+            graphicalEditor: 'Grafischer Editor',
+            codeEditor: 'Code Editor',
+            language: 'Sprache',
+            compact: 'Kompakt',
+            ...GsLocale.de_DE
+          }
+        });
         break;
       case 'es':
         moment.locale('es');
-        this.setState({locale: GsLocale.es_ES});
+        this.setState({
+          locale: {
+            graphicalEditor: 'Editor gráfico',
+            codeEditor: 'Editor de código',
+            language: 'Idioma',
+            compact: 'Compacto',
+            ...GsLocale.es_ES
+          }
+        });
         break;
       default:
         moment.locale('en');
-        this.setState({locale: GsLocale.en_US});
+          this.setState({
+            locale: {
+            graphicalEditor: 'Graphical Editor',
+            codeEditor: 'Code Editor',
+            language: 'Language',
+            compact: 'Compact',
+            ...GsLocale.en_US
+          }
+        });
         break;
     }
   }
@@ -137,7 +176,7 @@ class App extends React.Component<AppProps, AppState> {
             </span>
           </header>
           <Form layout="inline" className="gs-settings">
-            <Form.Item label="Language">
+            <Form.Item label={locale.language}>
               <RadioGroup
                 className="language-select"
                 onChange={this.onLangChange}
@@ -148,7 +187,7 @@ class App extends React.Component<AppProps, AppState> {
                 <RadioButton value="es">ES</RadioButton>
               </RadioGroup>
             </Form.Item>
-            <Form.Item label="Compact">
+            <Form.Item label={locale.compact}>
               <Switch
                 checked={compact}
                 onChange={this.onCompactSwitchChange}
@@ -188,7 +227,7 @@ class App extends React.Component<AppProps, AppState> {
           </Form>
           <div className="main-content">
             <div className="gui-wrapper">
-              <h2>Graphical Editor</h2>
+              <h2>{locale.graphicalEditor}</h2>
               <Style
                 style={style}
                 data={data}
@@ -204,7 +243,7 @@ class App extends React.Component<AppProps, AppState> {
               />
             </div>
             <div className="editor-wrapper">
-              <h2>Code Editor</h2>
+              <h2>{locale.codeEditor}</h2>
               <CodeEditor
                 style={style}
                 parsers={[
