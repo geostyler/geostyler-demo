@@ -16,7 +16,7 @@
     "moment": "2.22.2",
     "ol": "4.6.5",
     "react-dom": "16.7.0",
-    "react-scripts": "2.1.1",
+    "react-scripts": "2.1.2",
     "react": "16.7.0",
     "typescript": "3.2.1"
   },
