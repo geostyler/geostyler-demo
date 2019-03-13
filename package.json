@@ -11,7 +11,7 @@
     "geostyler-sld-parser": "0.18.0",
     "geostyler-style": "0.14.3",
     "geostyler-wfs-parser": "0.7.3",
-    "geostyler": "3.1.1",
+    "geostyler": "3.2.0",
     "moment": "2.24.0",
     "ol": "5.3.1",
     "react-dom": "16.8.4",
