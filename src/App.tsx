@@ -1,22 +1,15 @@
 import * as React from 'react';
 
-import 'antd/dist/antd.css';
-
 import {
   Form,
   LocaleProvider,
   Radio,
   Switch
 } from 'antd';
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
-
 import { Locale } from 'antd/lib/locale-provider/index';
 import * as moment from 'moment';
 import 'moment/locale/de';
 import 'moment/locale/es';
-
-import logo from './assets/logo.svg';
 
 import {
   Style as GsStyle,
@@ -29,9 +22,7 @@ import {
 
 import GeoJsonParser from 'geostyler-geojson-parser';
 import SldStyleParser from 'geostyler-sld-parser';
-import GeoWfsParser from 'geostyler-wfs-parser';
-
-import './App.css';
+import WfsParser from 'geostyler-wfs-parser';
 
 import {
   CodeEditor,
@@ -40,6 +31,14 @@ import {
   Style,
   StyleLoader
 } from 'geostyler';
+
+import logo from './assets/logo.svg';
+import 'antd/dist/antd.css';
+import './App.css';
+
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
+
 
 // i18n
 export interface AppLocale extends Locale {
@@ -68,6 +67,12 @@ interface AppState {
 }
 
 class App extends React.Component<AppProps, AppState> {
+
+  _sldStyleParser = new SldStyleParser();
+
+  _geoJsonParser = new GeoJsonParser();
+
+  _wfsParser = new WfsParser();
 
   constructor(props: AppProps) {
     super(props);
@@ -206,7 +211,7 @@ class App extends React.Component<AppProps, AppState> {
             <Form.Item>
               <StyleLoader
                 parsers={[
-                  SldStyleParser
+                  this._sldStyleParser
                 ]}
                 onStyleRead={(style: GsStyle) => {
                   this.setState({style});
@@ -216,8 +221,8 @@ class App extends React.Component<AppProps, AppState> {
             <Form.Item>
               <DataLoader
                 parsers={[
-                  GeoJsonParser,
-                  GeoWfsParser
+                  this._geoJsonParser,
+                  this._wfsParser
                 ]}
                 onDataRead={(data: GsData) => {
                   this.setState({data});
@@ -247,9 +252,9 @@ class App extends React.Component<AppProps, AppState> {
               <CodeEditor
                 style={style}
                 parsers={[
-                  SldStyleParser
+                  this._sldStyleParser
                 ]}
-                defaultParser={SldStyleParser}
+                defaultParser={this._sldStyleParser}
                 onStyleChange={(style: GsStyle) => {
                   this.setState({style});
                 }}
