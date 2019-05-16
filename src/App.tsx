@@ -68,11 +68,11 @@ interface AppState {
 
 class App extends React.Component<AppProps, AppState> {
 
-  _sldStyleParser = new SldStyleParser();
+  private _sldStyleParser = new SldStyleParser();
 
-  _geoJsonParser = new GeoJsonParser();
+  private _geoJsonParser = new GeoJsonParser();
 
-  _wfsParser = new WfsParser();
+  private _wfsParser = new WfsParser();
 
   constructor(props: AppProps) {
     super(props);
