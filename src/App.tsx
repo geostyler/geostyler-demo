@@ -33,7 +33,6 @@ import {
 } from 'geostyler';
 
 import logo from './assets/logo.svg';
-import 'antd/dist/antd.css';
 import './App.css';
 
 const RadioButton = Radio.Button;
