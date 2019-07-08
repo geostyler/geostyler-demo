@@ -1,0 +1,48 @@
+{
+  "name": "GeoServer SLD Cook Book: Zoom-based point",
+  "rules": [
+    {
+      "name": "Large",
+      "scaleDenominator": {
+        "max": 160000000
+      },
+      "symbolizers": [
+        {
+          "kind": "Mark",
+          "color": "#CC3300",
+          "radius": 6,
+          "wellKnownName": "Circle"
+        }
+      ]
+    },
+    {
+      "name": "Medium",
+      "scaleDenominator": {
+        "min": 160000000,
+        "max": 320000000
+      },
+      "symbolizers": [
+        {
+          "kind": "Mark",
+          "color": "#CC3300",
+          "radius": 4,
+          "wellKnownName": "Circle"
+        }
+      ]
+    },
+    {
+      "name": "Small",
+      "scaleDenominator": {
+        "min": 320000000
+      },
+      "symbolizers": [
+        {
+          "kind": "Mark",
+          "color": "#CC3300",
+          "radius": 2,
+          "wellKnownName": "Circle"
+        }
+      ]
+    }
+  ]
+}

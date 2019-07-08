@@ -4,7 +4,8 @@ import {
   Form,
   LocaleProvider,
   Radio,
-  Switch
+  Switch,
+  Button
 } from 'antd';
 import { Locale } from 'antd/lib/locale-provider/index';
 import * as moment from 'moment';
@@ -34,10 +35,10 @@ import {
 
 import logo from './assets/logo.svg';
 import './App.css';
+import ExamplesDialog from './ExamplesDialog';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
-
 
 // i18n
 export interface AppLocale extends Locale {
@@ -45,6 +46,7 @@ export interface AppLocale extends Locale {
   codeEditor: string;
   language: string;
   compact: string;
+  examples: string;
 }
 
 // default props
@@ -62,7 +64,8 @@ interface AppState {
   data?: GsData;
   locale: AppLocale;
   compact: boolean;
-  ruleRendererType?: 'SLD' | 'OpenLayers',
+  ruleRendererType?: 'SLD' | 'OpenLayers';
+  examplesModalVisible: boolean;
 }
 
 class App extends React.Component<AppProps, AppState> {
@@ -81,10 +84,12 @@ class App extends React.Component<AppProps, AppState> {
         codeEditor: 'Code Editor',
         language: 'Language',
         compact: 'Compact',
+        examples: 'Examples',
         ...GsLocale.en_US
       },
       compact: true,
       ruleRendererType: 'SLD',
+      examplesModalVisible: false,
       style: {
         name: 'Demo Style',
         rules: [{
@@ -110,6 +115,7 @@ class App extends React.Component<AppProps, AppState> {
             codeEditor: 'Code Editor',
             language: 'Language',
             compact: 'Compact',
+            examples: 'Examples',
             ...GsLocale.en_US
           }
         });
@@ -122,6 +128,7 @@ class App extends React.Component<AppProps, AppState> {
             codeEditor: 'Code Editor',
             language: 'Sprache',
             compact: 'Kompakt',
+            examples: 'Beispiele',
             ...GsLocale.de_DE
           }
         });
@@ -134,6 +141,7 @@ class App extends React.Component<AppProps, AppState> {
             codeEditor: 'Editor de código',
             language: 'Idioma',
             compact: 'Compacto',
+            examples: 'Ejemplos',
             ...GsLocale.es_ES
           }
         });
@@ -142,12 +150,13 @@ class App extends React.Component<AppProps, AppState> {
         moment.locale('en');
           this.setState({
             locale: {
-            graphicalEditor: 'Graphical Editor',
-            codeEditor: 'Code Editor',
-            language: 'Language',
-            compact: 'Compact',
-            ...GsLocale.en_US
-          }
+              graphicalEditor: 'Graphical Editor',
+              codeEditor: 'Code Editor',
+              language: 'Language',
+              compact: 'Compact',
+              examples: 'Examples',
+              ...GsLocale.en_US
+            }
         });
         break;
     }
@@ -162,8 +171,31 @@ class App extends React.Component<AppProps, AppState> {
     this.setState({compact});
   }
 
+  onExamplesButtonClicked = () => {
+    const {
+      examplesModalVisible
+    } = this.state;
+    this.setState({
+      examplesModalVisible: !examplesModalVisible
+    });
+  }
+
+  onExampleSelected = (exampleStyle?: GsStyle) => {
+    if (exampleStyle) {
+      this.setState({
+        examplesModalVisible: false,
+        style: exampleStyle
+      })
+    } else {
+      this.setState({
+        examplesModalVisible: false
+      });
+    }
+  }
+
   public render() {
     const {
+      examplesModalVisible,
       locale,
       style,
       data,
@@ -228,6 +260,13 @@ class App extends React.Component<AppProps, AppState> {
                 }}
               />
             </Form.Item>
+            <Form.Item>
+              <Button
+                onClick={this.onExamplesButtonClicked}
+              >
+                {locale.examples}
+              </Button>
+            </Form.Item>
           </Form>
           <div className="main-content">
             <div className="gui-wrapper">
@@ -262,6 +301,11 @@ class App extends React.Component<AppProps, AppState> {
               />
             </div>
           </div>
+          <ExamplesDialog
+            visible={examplesModalVisible}
+            onOkClicked={this.onExampleSelected}
+            width="50%"
+          />
         </div>
       </LocaleProvider>
     );
