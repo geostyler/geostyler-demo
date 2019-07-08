@@ -30,6 +30,11 @@
   color: #162162;
 }
 
+.gs-settings button.ant-btn,
+.gs-settings button.ant-btn:empty {
+  vertical-align: middle;
+}
+
 .logo {
   height: 60px;
 }

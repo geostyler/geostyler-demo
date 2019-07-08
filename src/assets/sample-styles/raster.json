@@ -1,0 +1,50 @@
+{
+  "name": "SLD Cook Book: Many color gradient",
+  "rules": [
+    {
+      "name": "",
+      "symbolizers": [
+        {
+          "kind": "Raster",
+          "colorMap": {
+            "type": "ramp",
+            "colorMapEntries": [
+              {
+                "color": "#000000",
+                "quantity": 95
+              },
+              {
+                "color": "#0000FF",
+                "quantity": 110
+              },
+              {
+                "color": "#00FF00",
+                "quantity": 135
+              },
+              {
+                "color": "#FF0000",
+                "quantity": 160
+              },
+              {
+                "color": "#FF00FF",
+                "quantity": 185
+              },
+              {
+                "color": "#FFFF00",
+                "quantity": 210
+              },
+              {
+                "color": "#00FFFF",
+                "quantity": 235
+              },
+              {
+                "color": "#FFFFFF",
+                "quantity": 256
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
