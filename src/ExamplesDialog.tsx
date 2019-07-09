@@ -22,6 +22,7 @@ import { Style } from 'geostyler-style';
 import { ModalProps } from 'antd/lib/modal';
 
 type ExampleStyle = {
+  id: number,
   name: string,
   description?: string,
   style: Style
@@ -45,7 +46,7 @@ interface ExamplesDialogProps extends Partial<ExamplesDialogDefaultProps> {
 // state
 interface ExampleDialogState {
   locale: ExamplesDialogLocale;
-  selectedStyleName?: string;
+  selectedStyleId?: number;
   exampleStyles: ExampleStyle[];
 }
 
@@ -56,26 +57,32 @@ class ExamplesDialog extends React.Component<ExamplesDialogProps, ExampleDialogS
     this.state = {
       exampleStyles: [{
         name: 'Basic Point',
-        description: 'The most simple example.',
+        id: 1,
+        description: '… the most simple example.',
         style: circle as Style
       }, {
         name: 'Basic Point',
+        id: 2,
         description: '… with a nested Filter',
         style: nestedFilter as Style
       }, {
         name: 'Zoom based Point',
+        id: 3,
         description: '… from GeoServer SLD Cookbook',
         style: zoomBasedPoint as Style
       },{
         name: 'Alternating Line',
+        id: 4,
         description: '… from GeoServer SLD Cookbook',
         style: alternatingLine as Style
       }, {
         name: 'Classified Polygons',
-        description: '… for population. Created via Classification tool.',
+        id: 5,
+        description: '… for population. Created via classification tool.',
         style: populationQuantiles as Style
       }, {
         name: 'Raster ColorMap',
+        id: 6,
         description: '… with a multi-color gradient from GeoServer SLD Cookbook',
         style: raster as Style
       }],
@@ -94,8 +101,8 @@ class ExamplesDialog extends React.Component<ExamplesDialogProps, ExampleDialogS
 
   onExampleClicked = (evt: React.MouseEvent<HTMLElement>) => {
     const element: HTMLElement = evt.target as HTMLElement;
-    const selectedStyleName = element.dataset.name;
-    this.setState({selectedStyleName});
+    const selectedStyleId = parseInt(element.dataset.id as string, 10);
+    this.setState({selectedStyleId});
   }
 
   onOk = () => {
@@ -104,9 +111,9 @@ class ExamplesDialog extends React.Component<ExamplesDialogProps, ExampleDialogS
     } = this.props;
     const {
       exampleStyles,
-      selectedStyleName
+      selectedStyleId
     } = this.state;
-    const selectedExampleStyle = exampleStyles.find(exampleStyle => exampleStyle.name === selectedStyleName);
+    const selectedExampleStyle = exampleStyles.find(exampleStyle => exampleStyle.id === selectedStyleId);
     if (selectedExampleStyle && onOkClicked) {
       onOkClicked(selectedExampleStyle.style);
     }
@@ -119,22 +126,23 @@ class ExamplesDialog extends React.Component<ExamplesDialogProps, ExampleDialogS
       ...passThroughProps
     } = this.props;
     const {
-      selectedStyleName,
+      selectedStyleId,
       exampleStyles,
       locale
     } = this.state;
 
     const cards = exampleStyles!.map(exampleStyle => {
       let className = 'example-card';
-      if (exampleStyle.name === selectedStyleName) {
+      if (exampleStyle.id === selectedStyleId) {
         className += ' selected';
       }
       return (
         <div
-          data-name={exampleStyle.name}
+          data-id={exampleStyle.id}
           className={className}
           key={exampleStyle.name + exampleStyle.description}
           onClick={this.onExampleClicked}
+          title={exampleStyle.description}
         >
           <span className="title">{exampleStyle.name}</span>
           <div className="description">{exampleStyle.description}</div>
