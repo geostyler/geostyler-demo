@@ -16,6 +16,7 @@
 }
 
 .examples-dialog .example-card {
+  overflow: hidden;
   cursor: pointer;
   justify-self: stretch;
   text-align: center;
