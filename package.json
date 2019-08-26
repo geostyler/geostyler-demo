@@ -4,8 +4,8 @@
   "homepage": ".",
   "devDependencies": {},
   "dependencies": {
-    "@types/react": "^16.8.23",
-    "@types/react-dom": "^16.8.4",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
     "antd": "^3.20.1",
     "geostyler": "^4.3.0",
     "geostyler-geojson-parser": "^1.0.0",
@@ -14,8 +14,8 @@
     "geostyler-wfs-parser": "^1.0.0",
     "moment": "^2.24.0",
     "ol": "^5.3.3",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-scripts": "^3.0.1",
     "typescript": "^3.5.2"
   },
