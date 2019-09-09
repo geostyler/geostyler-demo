@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import {
+  ConfigProvider,
   Form,
-  LocaleProvider,
   Radio,
   Switch,
   Button
@@ -203,7 +203,7 @@ class App extends React.Component<AppProps, AppState> {
       ruleRendererType
     } = this.state;
     return (
-      <LocaleProvider locale={locale}>
+      <ConfigProvider locale={locale}>
         <div className="app">
           <header className="gs-header">
             <span className="logo-title">
@@ -307,7 +307,7 @@ class App extends React.Component<AppProps, AppState> {
             width="50%"
           />
         </div>
-      </LocaleProvider>
+      </ConfigProvider>
     );
   }
 }

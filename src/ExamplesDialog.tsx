@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {
-  LocaleProvider,
+  ConfigProvider,
   Modal
 } from 'antd';
 import { Locale } from 'antd/lib/locale-provider/index';
@@ -151,7 +151,7 @@ class ExamplesDialog extends React.Component<ExamplesDialogProps, ExampleDialogS
     });
 
     return (
-      <LocaleProvider locale={locale}>
+      <ConfigProvider locale={locale}>
           <Modal
             className="examples-dialog"
             {...passThroughProps}
@@ -162,7 +162,7 @@ class ExamplesDialog extends React.Component<ExamplesDialogProps, ExampleDialogS
           >
             {cards}
           </Modal>
-      </LocaleProvider>
+      </ConfigProvider>
     );
   }
 }
