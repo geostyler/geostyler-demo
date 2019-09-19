@@ -1,10 +1,10 @@
 # geostyler-demo
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/terrestris/geostyler-demo.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/geostyler/geostyler-demo.svg)](https://greenkeeper.io/)
 
 GeoStyler Demo App
 
-[Go To Live Demo](https://terrestris.github.io/geostyler-demo/)
+[Go To Live Demo](https://geostyler.github.io/geostyler-demo/)
 
 ### Issues
-Please provide related issues here https://github.com/terrestris/geostyler/issues
+Please provide related issues here https://github.com/geostyler/geostyler/issues
