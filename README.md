@@ -5,6 +5,3 @@
 GeoStyler Demo App
 
 [Go To Live Demo](https://geostyler.github.io/geostyler-demo/)
-
-### Issues
-Please provide related issues here https://github.com/geostyler/geostyler/issues
