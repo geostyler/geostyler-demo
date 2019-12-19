@@ -12,12 +12,12 @@
     "geostyler-shapefile-parser": "^1.0.0",
     "geostyler-sld-parser": "^2.0.0",
     "geostyler-style": "^2.0.0",
-    "geostyler-wfs-parser": "^1.0.0",
+    "geostyler-wfs-parser": "^1.0.1",
     "moment": "^2.24.0",
     "ol": "^6.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^3.3.0",
     "typescript": "^3.5.2"
   },
   "scripts": {
