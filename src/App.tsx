@@ -5,7 +5,8 @@ import {
   Form,
   Radio,
   Switch,
-  Button
+  Button,
+  Collapse
 } from 'antd';
 import { Locale } from 'antd/lib/locale-provider/index';
 import * as moment from 'moment';
@@ -31,7 +32,8 @@ import {
   DataLoader,
   locale as GsLocale,
   Style,
-  StyleLoader
+  StyleLoader,
+  PreviewMap
 } from 'geostyler';
 
 import logo from './assets/logo.svg';
@@ -45,6 +47,7 @@ const RadioGroup = Radio.Group;
 export interface AppLocale extends Locale {
   graphicalEditor: string;
   codeEditor: string;
+  previewMap: string;
   language: string;
   compact: string;
   examples: string;
@@ -85,6 +88,7 @@ class App extends React.Component<AppProps, AppState> {
       locale: {
         graphicalEditor: 'Graphical Editor',
         codeEditor: 'Code Editor',
+        previewMap: 'Preview Map',
         language: 'Language',
         compact: 'Compact',
         examples: 'Examples',
@@ -116,6 +120,7 @@ class App extends React.Component<AppProps, AppState> {
           locale: {
             graphicalEditor: 'Graphical Editor',
             codeEditor: 'Code Editor',
+            previewMap: 'Preview Map',
             language: 'Language',
             compact: 'Compact',
             examples: 'Examples',
@@ -129,6 +134,7 @@ class App extends React.Component<AppProps, AppState> {
           locale: {
             graphicalEditor: 'Grafischer Editor',
             codeEditor: 'Code Editor',
+            previewMap: 'Vorschau Karte',
             language: 'Sprache',
             compact: 'Kompakt',
             examples: 'Beispiele',
@@ -142,6 +148,7 @@ class App extends React.Component<AppProps, AppState> {
           locale: {
             graphicalEditor: 'Editor gráfico',
             codeEditor: 'Editor de código',
+            previewMap: 'Mapa de previsualización',
             language: 'Idioma',
             compact: 'Compacto',
             examples: 'Ejemplos',
@@ -155,6 +162,7 @@ class App extends React.Component<AppProps, AppState> {
             locale: {
               graphicalEditor: 'Graphical Editor',
               codeEditor: 'Code Editor',
+              previewMap: 'Preview Map',
               language: 'Language',
               compact: 'Compact',
               examples: 'Examples',
@@ -289,20 +297,29 @@ class App extends React.Component<AppProps, AppState> {
                 }}
               />
             </div>
-            <div className="editor-wrapper">
-              <h2>{locale.codeEditor}</h2>
-              <CodeEditor
-                style={style}
-                parsers={[
-                  this._sldStyleParser
-                ]}
-                defaultParser={this._sldStyleParser}
-                onStyleChange={(style: GsStyle) => {
-                  this.setState({style});
-                }}
-                showSaveButton={true}
-                showCopyButton={true}
-              />
+            <div className="right-wrapper">
+              <Collapse defaultActiveKey={['code-editor']}>
+                <Collapse.Panel header={locale.codeEditor} key="code-editor">
+                  <CodeEditor
+                    style={style}
+                    parsers={[
+                      this._sldStyleParser
+                    ]}
+                    defaultParser={this._sldStyleParser}
+                    onStyleChange={(style: GsStyle) => {
+                      this.setState({style});
+                    }}
+                    showSaveButton={true}
+                    showCopyButton={true}
+                  />
+                </Collapse.Panel>
+                <Collapse.Panel header={locale.previewMap} key="preview-map">
+                  <PreviewMap
+                    style={style}
+                    data={data}
+                  />
+                </Collapse.Panel>
+              </Collapse>
             </div>
           </div>
           <ExamplesDialog
