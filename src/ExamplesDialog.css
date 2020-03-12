@@ -40,4 +40,9 @@
 .examples-dialog .example-card .title {
   font-size: 1.5em;
   color: #162162;
+  pointer-events: none;
+}
+
+.examples-dialog .example-card .description {
+  pointer-events: none;
 }
