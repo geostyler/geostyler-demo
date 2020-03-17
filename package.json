@@ -6,7 +6,7 @@
   "dependencies": {
     "@types/react": "^16.9.2",
     "@types/color": "3.0.0",
-    "@types/react-dom": "^16.9.0",
+    "@types/react-dom": "^16.9.5",
     "antd": "^3.20.1",
     "geostyler": "^4.5.0",
     "geostyler-geojson-parser": "^1.0.0",
