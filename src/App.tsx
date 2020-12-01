@@ -292,7 +292,7 @@ class App extends React.Component<AppProps, AppState> {
                 compact={compact}
                 ruleRendererType={ruleRendererType}
                 sldRendererProps={{
-                  wmsBaseUrl: 'https://ows.terrestris.de/geoserver/wms',
+                  wmsBaseUrl: 'https://ows-demo.terrestris.de/geoserver/ows?',
                   layer: 'terrestris:bundeslaender'
                 }}
               />
