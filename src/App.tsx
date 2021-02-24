@@ -1,13 +1,9 @@
 import * as React from 'react';
 
-import {
-  ConfigProvider,
-  Form,
-  Radio,
-  Switch,
-  Button,
-  Collapse
-} from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+
+import { ConfigProvider, Radio, Switch, Button, Collapse } from 'antd';
 import { Locale } from 'antd/lib/locale-provider/index';
 import * as moment from 'moment';
 import 'moment/locale/de';
