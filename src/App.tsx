@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import {
   ConfigProvider,
-  Form,
   Radio,
   Switch,
   Button,
-  Collapse
+  Collapse,
+  Form
 } from 'antd';
 import { Locale } from 'antd/lib/locale-provider/index';
 import * as moment from 'moment';
@@ -222,64 +222,66 @@ class App extends React.Component<AppProps, AppState> {
               <span className="app-title">GeoStyler</span>
             </span>
           </header>
-          <Form layout="inline" className="gs-settings">
-            <Form.Item label={locale.language}>
-              <RadioGroup
-                className="language-select"
-                onChange={this.onLangChange}
-                defaultValue="en"
-              >
-                <RadioButton value="en">EN</RadioButton>
-                <RadioButton value="de">DE</RadioButton>
-                <RadioButton value="es">ES</RadioButton>
-              </RadioGroup>
-            </Form.Item>
-            <Form.Item label={locale.compact}>
-              <Switch
-                checked={compact}
-                onChange={this.onCompactSwitchChange}
-              />
-            </Form.Item>
-            <Form.Item label="Symbolizer Renderer">
-              <RadioGroup
-                className="language-select"
-                onChange={this.onRuleRendererChange}
-                value={ruleRendererType}
-              >
-                <RadioButton value="OpenLayers">OpenLayers</RadioButton>
-                <RadioButton value="SLD">SLD</RadioButton>
-              </RadioGroup>
-            </Form.Item>
-            <Form.Item>
-              <StyleLoader
-                parsers={[
-                  this._sldStyleParser
-                ]}
-                onStyleRead={(style: GsStyle) => {
-                  this.setState({style});
-                }}
-              />
-            </Form.Item>
-            <Form.Item>
-              <DataLoader
-                parsers={[
-                  this._geoJsonParser,
-                  this._wfsParser,
-                  this._shapefileParser
-                ]}
-                onDataRead={(data: GsData) => {
-                  this.setState({data});
-                }}
-              />
-            </Form.Item>
-            <Form.Item>
-              <Button
-                onClick={this.onExamplesButtonClicked}
-              >
-                {locale.examples}
-              </Button>
-            </Form.Item>
-          </Form>
+          <div className="gs-settings">
+            <Form layout="inline">
+              <Form.Item label={locale.language}>
+                <RadioGroup
+                  className="language-select"
+                  onChange={this.onLangChange}
+                  defaultValue="en"
+                >
+                  <RadioButton value="en">EN</RadioButton>
+                  <RadioButton value="de">DE</RadioButton>
+                  <RadioButton value="es">ES</RadioButton>
+                </RadioGroup>
+              </Form.Item>
+              <Form.Item label={locale.compact}>
+                <Switch
+                  checked={compact}
+                  onChange={this.onCompactSwitchChange}
+                />
+              </Form.Item>
+              <Form.Item label="Symbolizer Renderer">
+                <RadioGroup
+                  className="language-select"
+                  onChange={this.onRuleRendererChange}
+                  value={ruleRendererType}
+                >
+                  <RadioButton value="OpenLayers">OpenLayers</RadioButton>
+                  <RadioButton value="SLD">SLD</RadioButton>
+                </RadioGroup>
+              </Form.Item>
+              <Form.Item>
+                <StyleLoader
+                  parsers={[
+                    this._sldStyleParser
+                  ]}
+                  onStyleRead={(style: GsStyle) => {
+                    this.setState({style});
+                  }}
+                />
+              </Form.Item>
+              <Form.Item>
+                <DataLoader
+                  parsers={[
+                    this._geoJsonParser,
+                    this._wfsParser,
+                    this._shapefileParser
+                  ]}
+                  onDataRead={(data: GsData) => {
+                    this.setState({data});
+                  }}
+                />
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  onClick={this.onExamplesButtonClicked}
+                >
+                  {locale.examples}
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
           <div className="main-content">
             <div className="gui-wrapper">
               <h2>{locale.graphicalEditor}</h2>

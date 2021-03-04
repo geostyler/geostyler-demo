@@ -17,7 +17,9 @@
 .gs-settings {
   background-color: #ffde66;
   border-bottom: 3px solid #ffc800;
-  text-align: center;
+  padding: 5px 0;
+  display: inline-flex;
+  justify-content: center;
 }
 
 .gs-settings .ant-switch-checked {
