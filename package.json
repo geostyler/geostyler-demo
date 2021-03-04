@@ -6,7 +6,7 @@
   "dependencies": {
     "@ant-design/compatible": "^1.0.8",
     "@ant-design/icons": "^4.5.0",
-    "@types/color": "3.0.0",
+    "@types/color": "3.0.1",
     "@types/react": "^16.14.4",
     "@types/react-dom": "^16.9.11",
     "antd": "^4.12.3",
