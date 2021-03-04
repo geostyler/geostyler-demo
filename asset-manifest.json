@@ -1,27 +1,25 @@
 {
   "files": {
-    "main.css": "./static/css/main.91dcbfb7.chunk.css",
-    "main.js": "./static/js/main.d913c89a.chunk.js",
-    "main.js.map": "./static/js/main.d913c89a.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.2111fa6d.js",
-    "runtime-main.js.map": "./static/js/runtime-main.2111fa6d.js.map",
-    "static/css/2.0a42ce04.chunk.css": "./static/css/2.0a42ce04.chunk.css",
-    "static/js/2.49d856f5.chunk.js": "./static/js/2.49d856f5.chunk.js",
-    "static/js/2.49d856f5.chunk.js.map": "./static/js/2.49d856f5.chunk.js.map",
+    "main.css": "./static/css/main.52aad453.chunk.css",
+    "main.js": "./static/js/main.8535846e.chunk.js",
+    "main.js.map": "./static/js/main.8535846e.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.31fe9716.js",
+    "runtime-main.js.map": "./static/js/runtime-main.31fe9716.js.map",
+    "static/css/2.a7bb4d65.chunk.css": "./static/css/2.a7bb4d65.chunk.css",
+    "static/js/2.3418c5cd.chunk.js": "./static/js/2.3418c5cd.chunk.js",
+    "static/js/2.3418c5cd.chunk.js.map": "./static/js/2.3418c5cd.chunk.js.map",
     "index.html": "./index.html",
-    "precache-manifest.5dfe7b191ffef803f0ea67ddce340541.js": "./precache-manifest.5dfe7b191ffef803f0ea67ddce340541.js",
-    "service-worker.js": "./service-worker.js",
-    "static/css/2.0a42ce04.chunk.css.map": "./static/css/2.0a42ce04.chunk.css.map",
-    "static/css/main.91dcbfb7.chunk.css.map": "./static/css/main.91dcbfb7.chunk.css.map",
-    "static/js/2.49d856f5.chunk.js.LICENSE": "./static/js/2.49d856f5.chunk.js.LICENSE",
-    "static/media/index.css": "./static/media/aldrich-v8-latin-regular.f2ba1dee.woff2",
-    "static/media/logo.svg": "./static/media/logo.b2b95d68.svg"
+    "static/css/2.a7bb4d65.chunk.css.map": "./static/css/2.a7bb4d65.chunk.css.map",
+    "static/css/main.52aad453.chunk.css.map": "./static/css/main.52aad453.chunk.css.map",
+    "static/js/2.3418c5cd.chunk.js.LICENSE.txt": "./static/js/2.3418c5cd.chunk.js.LICENSE.txt",
+    "static/media/index.css": "./static/media/aldrich-v8-latin-regular.dc419b6b.svg",
+    "static/media/logo.5ea8ba0f.svg": "./static/media/logo.5ea8ba0f.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.2111fa6d.js",
-    "static/css/2.0a42ce04.chunk.css",
-    "static/js/2.49d856f5.chunk.js",
-    "static/css/main.91dcbfb7.chunk.css",
-    "static/js/main.d913c89a.chunk.js"
+    "static/js/runtime-main.31fe9716.js",
+    "static/css/2.a7bb4d65.chunk.css",
+    "static/js/2.3418c5cd.chunk.js",
+    "static/css/main.52aad453.chunk.css",
+    "static/js/main.8535846e.chunk.js"
   ]
 }
