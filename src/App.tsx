@@ -76,6 +76,10 @@ class App extends React.Component<AppProps, AppState> {
 
   private _sldStyleParser = new SldStyleParser();
 
+  private _sldStyleParserSE = new SldStyleParser({
+    sldVersion: '1.1.0'
+  });
+
   private _geoJsonParser = new GeoJsonParser();
 
   private _shapefileParser = new ShapefileParser();
@@ -84,6 +88,7 @@ class App extends React.Component<AppProps, AppState> {
 
   constructor(props: AppProps) {
     super(props);
+    this._sldStyleParserSE.title = 'SLD 1.1.0 - Symbology Encoding';
     this.state = {
       locale: {
         graphicalEditor: 'Graphical Editor',
@@ -305,7 +310,8 @@ class App extends React.Component<AppProps, AppState> {
                   <CodeEditor
                     style={style}
                     parsers={[
-                      this._sldStyleParser
+                      this._sldStyleParser,
+                      this._sldStyleParserSE
                     ]}
                     defaultParser={this._sldStyleParser}
                     onStyleChange={(style: GsStyle) => {
