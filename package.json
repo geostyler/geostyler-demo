@@ -5,7 +5,7 @@
   "devDependencies": {},
   "dependencies": {
     "@ant-design/icons": "^4.5.0",
-    "@types/react": "^16.14.4",
+    "@types/react": "^17.0.3",
     "@types/react-dom": "^16.9.11",
     "antd": "^4.12.3",
     "geostyler": "^5.1.0",
