@@ -8,7 +8,7 @@
     "@types/react": "^16.14.4",
     "@types/react-dom": "^16.9.11",
     "antd": "^4.12.3",
-    "geostyler": "^5.1.0",
+    "geostyler": "^6.1.0",
     "geostyler-geojson-parser": "^1.0.1",
     "geostyler-shapefile-parser": "^1.0.0",
     "geostyler-sld-parser": "^2.2.0",
