@@ -12,7 +12,7 @@
     "geostyler-geojson-parser": "^1.0.1",
     "geostyler-shapefile-parser": "^1.0.0",
     "geostyler-sld-parser": "^2.2.0",
-    "geostyler-style": "^2.1.0",
+    "geostyler-style": "^4.0.2",
     "geostyler-wfs-parser": "^1.0.1",
     "moment": "^2.29.0",
     "ol": "^6.5.0",
