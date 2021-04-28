@@ -108,7 +108,7 @@ class App extends React.Component<AppProps, AppState> {
           name: 'Rule 1',
           symbolizers: [{
             kind: 'Mark',
-            wellKnownName: 'Circle'
+            wellKnownName: 'circle'
           }]
         }]
       }
