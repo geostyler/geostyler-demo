@@ -161,6 +161,20 @@ class App extends React.Component<AppProps, AppState> {
           }
         });
         break;
+      case 'ch':
+        moment.locale('zh-cn');
+        this.setState({
+          locale: {
+            graphicalEditor: '图形编辑器',
+            codeEditor: '代码编辑器',
+            previewMap: '预览图',
+            language: '语言',
+            compact: '紧凑',
+            examples: '例子',
+            ...GsLocale.zh_CN
+          }
+        });
+        break;
       default:
         moment.locale('en');
           this.setState({
@@ -238,6 +252,7 @@ class App extends React.Component<AppProps, AppState> {
                   <RadioButton value="en">EN</RadioButton>
                   <RadioButton value="de">DE</RadioButton>
                   <RadioButton value="es">ES</RadioButton>
+                  <RadioButton value="ch">中文</RadioButton>
                 </RadioGroup>
               </Form.Item>
               <Form.Item label={locale.compact}>
