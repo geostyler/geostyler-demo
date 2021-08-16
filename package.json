@@ -4,7 +4,7 @@
   "homepage": ".",
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
-    "@types/react": "^16.14.4",
+    "@types/react": "^17.0.18",
     "@types/react-dom": "^16.9.11",
     "antd": "^4.15.3",
     "geostyler": "^7.0.0",
