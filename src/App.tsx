@@ -39,18 +39,20 @@ import {
 import logo from './assets/logo.svg';
 import './App.css';
 import ExamplesDialog from './ExamplesDialog';
+import LegendRenderer from 'geostyler-legend/dist/LegendRenderer/LegendRenderer';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
 // i18n
 export interface AppLocale extends Locale {
-  graphicalEditor: string;
   codeEditor: string;
-  previewMap: string;
-  language: string;
   compact: string;
   examples: string;
+  graphicalEditor: string;
+  language: string;
+  legend: string;
+  previewMap: string;
 }
 
 // default props
@@ -91,12 +93,13 @@ class App extends React.Component<AppProps, AppState> {
     this._sldStyleParserSE.title = 'SLD 1.1.0 - Symbology Encoding';
     this.state = {
       locale: {
-        graphicalEditor: 'Graphical Editor',
         codeEditor: 'Code Editor',
-        previewMap: 'Preview Map',
-        language: 'Language',
         compact: 'Compact',
         examples: 'Examples',
+        graphicalEditor: 'Graphical Editor',
+        language: 'Language',
+        legend: 'Legend',
+        previewMap: 'Preview Map',
         ...GsLocale.en_US
       },
       compact: true,
@@ -123,12 +126,13 @@ class App extends React.Component<AppProps, AppState> {
         moment.locale('en');
         this.setState({
           locale: {
-            graphicalEditor: 'Graphical Editor',
             codeEditor: 'Code Editor',
-            previewMap: 'Preview Map',
-            language: 'Language',
             compact: 'Compact',
             examples: 'Examples',
+            graphicalEditor: 'Graphical Editor',
+            language: 'Language',
+            legend: 'Legend',
+            previewMap: 'Preview Map',
             ...GsLocale.en_US
           }
         });
@@ -137,12 +141,13 @@ class App extends React.Component<AppProps, AppState> {
         moment.locale('de');
         this.setState({
           locale: {
-            graphicalEditor: 'Grafischer Editor',
             codeEditor: 'Code Editor',
-            previewMap: 'Vorschau Karte',
-            language: 'Sprache',
             compact: 'Kompakt',
             examples: 'Beispiele',
+            graphicalEditor: 'Grafischer Editor',
+            language: 'Sprache',
+            legend: 'Legende',
+            previewMap: 'Vorschau Karte',
             ...GsLocale.de_DE
           }
         });
@@ -151,12 +156,13 @@ class App extends React.Component<AppProps, AppState> {
         moment.locale('es');
         this.setState({
           locale: {
-            graphicalEditor: 'Editor gráfico',
             codeEditor: 'Editor de código',
-            previewMap: 'Mapa de previsualización',
-            language: 'Idioma',
             compact: 'Compacto',
             examples: 'Ejemplos',
+            graphicalEditor: 'Editor gráfico',
+            language: 'Idioma',
+            legend: 'Leyenda',
+            previewMap: 'Mapa de previsualización',
             ...GsLocale.es_ES
           }
         });
@@ -165,12 +171,13 @@ class App extends React.Component<AppProps, AppState> {
         moment.locale('zh-cn');
         this.setState({
           locale: {
-            graphicalEditor: '图形编辑器',
             codeEditor: '代码编辑器',
-            previewMap: '预览图',
-            language: '语言',
             compact: '紧凑',
             examples: '例子',
+            graphicalEditor: '图形编辑器',
+            language: '语言',
+            legend: 'Legend',
+            previewMap: '预览图',
             ...GsLocale.zh_CN
           }
         });
@@ -179,12 +186,13 @@ class App extends React.Component<AppProps, AppState> {
         moment.locale('en');
           this.setState({
             locale: {
-              graphicalEditor: 'Graphical Editor',
               codeEditor: 'Code Editor',
-              previewMap: 'Preview Map',
-              language: 'Language',
               compact: 'Compact',
               examples: 'Examples',
+              graphicalEditor: 'Graphical Editor',
+              language: 'Language',
+              legend: 'Legend',
+              previewMap: 'Preview Map',
               ...GsLocale.en_US
             }
         });
@@ -232,6 +240,20 @@ class App extends React.Component<AppProps, AppState> {
       compact,
       ruleRendererType
     } = this.state;
+
+    const legendRenderer = new LegendRenderer({
+      maxColumnWidth: 300,
+      maxColumnHeight: 300,
+      overflow: 'auto',
+      styles: [style],
+      size: [600, 300],
+      hideRect: true
+    });
+    const legendEl = document.getElementById("legend");
+    if (legendEl) {
+      legendRenderer.render(legendEl);
+    }
+
     return (
       <ConfigProvider locale={locale}>
         <div className="app">
@@ -341,6 +363,9 @@ class App extends React.Component<AppProps, AppState> {
                     style={style}
                     data={data}
                   />
+                </Collapse.Panel>
+                <Collapse.Panel header={locale.legend} key="legend">
+                  <div id="legend" />
                 </Collapse.Panel>
               </Collapse>
             </div>
