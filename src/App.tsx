@@ -254,6 +254,23 @@ class App extends React.Component<AppProps, AppState> {
       legendRenderer.render(legendEl);
     }
 
+    const iconLibraryConfig = [{
+      name: 'Traffic',
+      icons: [{
+        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
+        caption: 'Parking'
+      }, {
+        src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg',
+        caption: 'Highway'
+      }]
+    }, {
+      name: 'GeoStyler',
+      icons: [{
+        src: 'https://raw.githubusercontent.com/geostyler/geostyler/master/public/logo.svg',
+        caption: 'GeoStyler Logo'
+      }]
+    }]
+
     return (
       <ConfigProvider locale={locale}>
         <div className="app">
@@ -333,6 +350,7 @@ class App extends React.Component<AppProps, AppState> {
                 onStyleChange={(style: GsStyle) => {
                   this.setState({style});
                 }}
+                iconLibraries={iconLibraryConfig}
                 compact={compact}
                 ruleRendererType={ruleRendererType}
                 sldRendererProps={{
