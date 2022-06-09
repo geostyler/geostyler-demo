@@ -313,7 +313,8 @@ class App extends React.Component<AppProps, AppState> {
               <Form.Item>
                 <StyleLoader
                   parsers={[
-                    this._sldStyleParser
+                    this._sldStyleParser,
+                    this._sldStyleParserSE
                   ]}
                   onStyleRead={(style: GsStyle) => {
                     this.setState({style});
