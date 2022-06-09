@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "webpack serve --config config/webpack.static.config.js --hot --progress --mode development",
-    "build": "NODE_ENV=production webpack --config config/webpack.production.config.js --mode production && cp public/* dist/"
+    "build": "NODE_ENV=production webpack --config config/webpack.production.config.js --mode production && cp public/*png public/*json dist/"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,8 +38,11 @@
     "copy-webpack-plugin": "11.0.0",
     "css-loader": "6.7.1",
     "file-loader": "6.2.0",
+    "html-webpack-plugin": "5.5.0",
     "image-webpack-loader": "8.1.0",
+    "stream-browserify": "3.0.0",
     "style-loader": "3.3.1",
+    "timers-browserify": "2.0.12",
     "ts-loader": "9.3.0",
     "tslib": "2.4.0",
     "url-loader": "4.1.1",

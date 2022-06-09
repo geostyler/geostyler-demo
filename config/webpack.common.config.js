@@ -1,5 +1,5 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: ['./src/index.tsx'],
@@ -28,10 +28,38 @@ module.exports = {
     }]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.css', '.scss']
+    extensions: ['.tsx', '.ts', '.js', '.css', '.scss'],
+    fallback: {
+      timers: require.resolve('timers-browserify'),
+      stream: require.resolve('stream-browserify')
+    },
+    alias: {
+      react: require.resolve('react'),
+      'geostyler-style': path.resolve('node_modules/geostyler-style/')
+    }
   },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, '../dist')
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      title: 'Geostyler Demo',
+      template: path.join(__dirname, '..', 'public', 'index.html'),
+      hash: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      }
+    })
+  ]
 };
