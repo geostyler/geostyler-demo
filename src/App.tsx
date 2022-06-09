@@ -36,6 +36,8 @@ import {
   PreviewMap
 } from 'geostyler';
 
+import { DragPan, MouseWheelZoom } from 'ol/interaction';
+
 import logo from './assets/logo.svg';
 import './App.css';
 import ExamplesDialog from './ExamplesDialog';
@@ -381,6 +383,7 @@ class App extends React.Component<AppProps, AppState> {
                   <PreviewMap
                     style={style}
                     data={data}
+                    interactions={[new MouseWheelZoom(), new DragPan()]}
                   />
                 </Collapse.Panel>
                 <Collapse.Panel header={locale.legend} key="legend">
