@@ -1,27 +1,43 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
-    "target": "es5",
-    "allowJs": true,
-    "skipLibCheck": false,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "outDir": "build/dist",
     "module": "esnext",
+    "target": "es5",
+    "lib": ["es6", "dom", "es2017"],
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "react",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+    "rootDir": ".",
+    "rootDirs": [
+      "./src/"
     ],
-    "noFallthroughCasesInSwitch": true
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "importHelpers": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
-  "include": [
-    "src"
+  "exclude": [
+    "build",
+    "config",
+    "coverage",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/**/*.test.tsx",
+    "**.config.js",
+    "node_modules/**/*"
+  ],
+  "files": [
+    "src/index.d.ts"
   ]
 }
