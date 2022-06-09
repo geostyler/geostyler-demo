@@ -13,4 +13,6 @@ To run it on your local machine:
     npm install
     npm start
 
-The demo application will be opened in your default browser.
+The demo application will be available under https://localhost:9090.
+
+You can also create a build by running `npm run build` and run a web browser in the `dist` folder (e.g. by running `python3 -m http.server 9000`) and you'll have the build available on http://localhost:9000.
