@@ -5,7 +5,8 @@ import {
   Switch,
   Button,
   Collapse,
-  Form
+  Form,
+  notification
 } from 'antd';
 import ConfigProvider from 'antd/lib/config-provider';
 import { Locale } from 'antd/lib/locale-provider/index';
@@ -55,6 +56,7 @@ export interface AppLocale extends Locale {
   language: string;
   legend: string;
   previewMap: string;
+  loadedSuccess: string;
 }
 
 // default props
@@ -102,6 +104,7 @@ class App extends React.Component<AppProps, AppState> {
         language: 'Language',
         legend: 'Legend',
         previewMap: 'Preview Map',
+        loadedSuccess: 'Loaded successfully!',
         ...GsLocale.en_US
       },
       compact: true,
@@ -135,6 +138,7 @@ class App extends React.Component<AppProps, AppState> {
             language: 'Language',
             legend: 'Legend',
             previewMap: 'Preview Map',
+            loadedSuccess: 'Loaded successfully!',
             ...GsLocale.en_US
           }
         });
@@ -150,6 +154,7 @@ class App extends React.Component<AppProps, AppState> {
             language: 'Sprache',
             legend: 'Legende',
             previewMap: 'Vorschau Karte',
+            loadedSuccess: 'Erfolgreich geladen!',
             ...GsLocale.de_DE
           }
         });
@@ -165,6 +170,7 @@ class App extends React.Component<AppProps, AppState> {
             language: 'Idioma',
             legend: 'Leyenda',
             previewMap: 'Mapa de previsualización',
+            loadedSuccess: 'Cargado con éxito!',
             ...GsLocale.es_ES
           }
         });
@@ -180,6 +186,7 @@ class App extends React.Component<AppProps, AppState> {
             language: '语言',
             legend: 'Legend',
             previewMap: '预览图',
+            loadedSuccess: '成功加载',
             ...GsLocale.zh_CN
           }
         });
@@ -195,6 +202,7 @@ class App extends React.Component<AppProps, AppState> {
               language: 'Language',
               legend: 'Legend',
               previewMap: 'Preview Map',
+              loadedSuccess: 'Loaded successfully!',
               ...GsLocale.en_US
             }
         });
@@ -319,6 +327,9 @@ class App extends React.Component<AppProps, AppState> {
                     this._sldStyleParserSE
                   ]}
                   onStyleRead={(style: GsStyle) => {
+                    notification.success({
+                      message: locale.loadedSuccess
+                    });
                     this.setState({style});
                   }}
                 />
@@ -331,6 +342,9 @@ class App extends React.Component<AppProps, AppState> {
                     this._shapefileParser
                   ]}
                   onDataRead={(data: GsData) => {
+                    notification.success({
+                      message: locale.loadedSuccess
+                    });
                     this.setState({data});
                   }}
                 />
