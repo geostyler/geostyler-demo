@@ -44,7 +44,7 @@
     "stream-browserify": "3.0.0",
     "style-loader": "3.3.1",
     "timers-browserify": "2.0.12",
-    "ts-loader": "9.3.0",
+    "ts-loader": "9.3.1",
     "tslib": "2.4.0",
     "url-loader": "4.1.1",
     "webpack": "5.73.0",
