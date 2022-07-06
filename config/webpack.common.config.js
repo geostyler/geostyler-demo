@@ -8,7 +8,7 @@ module.exports = {
       test: /\.tsx?|\.jsx?$/,
       use: 'ts-loader',
       // eslint-disable-next-line
-      exclude: /node_modules\/(?!url-polyfill|@terrestris|query-string|strict-uri-encode|split-on-first|react-beautiful-dnd)/
+      exclude: /node_modules/
     }, {
       test: /\.css$/,
       use: ['style-loader', 'css-loader']
