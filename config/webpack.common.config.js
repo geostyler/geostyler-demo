@@ -35,12 +35,15 @@ module.exports = {
     },
     alias: {
       react: require.resolve('react'),
-      'geostyler-style': path.resolve('node_modules/geostyler-style/')
+      // uncomment for development with npm link
+      // 'geostyler-style': path.resolve('node_modules', 'geostyler-style'),
+      // 'geostyler-sld-parser': path.resolve('node_modules', 'geostyler-sld-parser'),
+      // 'antd': path.resolve('node_modules', 'antd')
     }
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, '../dist')
+    path: path.resolve(__dirname, '..', 'dist')
   },
   plugins: [
     new HtmlWebpackPlugin({

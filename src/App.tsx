@@ -9,7 +9,6 @@ import {
   notification
 } from 'antd';
 import ConfigProvider from 'antd/lib/config-provider';
-import { Locale } from 'antd/lib/locale-provider/index';
 import * as moment from 'moment';
 import 'moment/locale/de';
 import 'moment/locale/es';
@@ -34,21 +33,25 @@ import {
   locale as GsLocale,
   Style,
   StyleLoader,
-  PreviewMap
+  PreviewMap,
+  GeoStylerLocale
 } from 'geostyler';
-
-import { DragPan, MouseWheelZoom } from 'ol/interaction';
 
 import logo from './assets/logo.svg';
 import './App.css';
 import ExamplesDialog from './ExamplesDialog';
 import LegendRenderer from 'geostyler-legend/dist/LegendRenderer/LegendRenderer';
+import OlMap from 'ol/Map';
+import OlView from 'ol/View';
+import OlLayerTile from 'ol/layer/Tile';
+import OlSourceTileWMS from 'ol/source/TileWMS';
+import { fromLonLat } from 'ol/proj';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
 // i18n
-export interface AppLocale extends Locale {
+export interface AppLocale extends GeoStylerLocale {
   codeEditor: string;
   compact: string;
   examples: string;
@@ -72,7 +75,7 @@ interface AppProps extends Partial<DefaultAppProps> {
 interface AppState {
   style: GsStyle;
   data?: GsData;
-  locale: AppLocale;
+  locale: AppLocale & GeoStylerLocale;
   compact: boolean;
   ruleRendererType?: 'SLD' | 'OpenLayers';
   examplesModalVisible: boolean;
@@ -116,7 +119,11 @@ class App extends React.Component<AppProps, AppState> {
           name: 'Rule 1',
           symbolizers: [{
             kind: 'Mark',
-            wellKnownName: 'circle'
+            wellKnownName: 'square',
+            color: '#93c0ed',
+            strokeColor: '#1345c3',
+            strokeWidth: 5,
+            radius: 20
           }]
         }]
       }
@@ -279,7 +286,25 @@ class App extends React.Component<AppProps, AppState> {
         src: 'https://raw.githubusercontent.com/geostyler/geostyler/master/public/logo.svg',
         caption: 'GeoStyler Logo'
       }]
-    }]
+    }];
+
+    const map = new OlMap({
+      layers: [
+        new OlLayerTile({
+          source: new OlSourceTileWMS({
+            url: 'https://sgx.geodatenzentrum.de/wms_topplus_open',
+            params: {
+              'LAYERS': 'web'
+            }
+          })
+        })
+      ],
+      target: 'map',
+      view: new OlView({
+        center: fromLonLat([-122.416667, 37.783333]),
+        zoom: 12,
+      }),
+    });
 
     return (
       <ConfigProvider locale={locale}>
@@ -396,8 +421,9 @@ class App extends React.Component<AppProps, AppState> {
                 <Collapse.Panel header={locale.previewMap} key="preview-map">
                   <PreviewMap
                     style={style}
+                    map={map}
+                    mapHeight="100%"
                     data={data}
-                    interactions={[new MouseWheelZoom(), new DragPan()]}
                   />
                 </Collapse.Panel>
                 <Collapse.Panel header={locale.legend} key="legend">
