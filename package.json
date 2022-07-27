@@ -9,7 +9,7 @@
     "@types/react-dom": "^17.0.12",
     "antd": "^4.15.3",
     "d3": "^6.7.0",
-    "geostyler": "^8.1.1",
+    "geostyler": "^9.0.1",
     "geostyler-geojson-parser": "^1.0.1",
     "geostyler-legend": "^2.1.0",
     "geostyler-shapefile-parser": "^1.0.0",
