@@ -36,9 +36,9 @@ module.exports = {
     alias: {
       react: require.resolve('react'),
       // uncomment for development with npm link
-      // 'geostyler-style': path.resolve('node_modules/geostyler-style/'),
-      // 'geostyler-sld-parser': path.resolve('node_modules/geostyler-sld-parser/'),
-      // 'antd': path.resolve('node_modules/antd/')
+      // 'geostyler-style': path.resolve('node_modules', 'geostyler-style'),
+      // 'geostyler-sld-parser': path.resolve('node_modules', 'geostyler-sld-parser'),
+      // 'antd': path.resolve('node_modules', 'antd')
     }
   },
   output: {
