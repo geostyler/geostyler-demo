@@ -191,6 +191,7 @@ class App extends React.Component<AppProps, AppState> {
             examples: 'Exemples',
             graphicalEditor: 'Éditeur graphique',
             language: 'Langue',
+            loadedSuccess: 'Chargement réussi!',
             legend: 'Légende',
             previewMap: 'Carte de prévisualisation',
             ...GsLocale.fr_FR
