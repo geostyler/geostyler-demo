@@ -182,6 +182,21 @@ class App extends React.Component<AppProps, AppState> {
           }
         });
         break;
+      case 'fr':
+        moment.locale('fr');
+        this.setState({
+          locale: {
+            codeEditor: 'Éditeur de code',
+            compact: 'Compact',
+            examples: 'Exemples',
+            graphicalEditor: 'Éditeur graphique',
+            language: 'Langue',
+            legend: 'Légende',
+            previewMap: 'Carte de prévisualisation',
+            ...GsLocale.fr_FR
+          }
+        });
+        break;
       case 'ch':
         moment.locale('zh-cn');
         this.setState({
@@ -326,6 +341,7 @@ class App extends React.Component<AppProps, AppState> {
                   <RadioButton value="en">EN</RadioButton>
                   <RadioButton value="de">DE</RadioButton>
                   <RadioButton value="es">ES</RadioButton>
+                  <RadioButton value="fr">FR</RadioButton>
                   <RadioButton value="ch">中文</RadioButton>
                 </RadioGroup>
               </Form.Item>
