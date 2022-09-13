@@ -47,21 +47,23 @@
   flex: 1;
 }
 
-.main-content h2 {
-  color: #162162;
-}
-
 .gui-wrapper {
   margin: 10px 5px 10px 10px;;
   background-color: #e8e8e8;
   flex: 3;
 }
 
-.gui-wrapper h2,
+.gui-wrapper>h2,
 .editor-wrapper h2 {
   font-family: 'Aldrich', sans-serif;
   text-align: center;
   color: #162162;
+}
+
+.gs-card-style {
+  background-color: white;
+  padding: 10px;
+  margin: 10px;
 }
 
 .right-wrapper {
