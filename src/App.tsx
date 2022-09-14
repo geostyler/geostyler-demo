@@ -37,6 +37,8 @@ import {
   GeoStylerLocale
 } from 'geostyler';
 
+import CardStyle from 'geostyler/dist/Component/CardStyle/CardStyle';
+
 import logo from './assets/logo.svg';
 import './App.css';
 import ExamplesDialog from './ExamplesDialog';
@@ -53,7 +55,7 @@ const RadioGroup = Radio.Group;
 // i18n
 export interface AppLocale extends GeoStylerLocale {
   codeEditor: string;
-  compact: string;
+  cardLayout: string;
   examples: string;
   graphicalEditor: string;
   language: string;
@@ -76,7 +78,7 @@ interface AppState {
   style: GsStyle;
   data?: GsData;
   locale: AppLocale & GeoStylerLocale;
-  compact: boolean;
+  cardLayout: boolean;
   ruleRendererType?: 'SLD' | 'OpenLayers';
   examplesModalVisible: boolean;
 }
@@ -101,7 +103,7 @@ class App extends React.Component<AppProps, AppState> {
     this.state = {
       locale: {
         codeEditor: 'Code Editor',
-        compact: 'Compact',
+        cardLayout: 'CardLayout',
         examples: 'Examples',
         graphicalEditor: 'Graphical Editor',
         language: 'Language',
@@ -110,7 +112,7 @@ class App extends React.Component<AppProps, AppState> {
         loadedSuccess: 'Loaded successfully!',
         ...GsLocale.en_US
       },
-      compact: true,
+      cardLayout: false,
       ruleRendererType: 'SLD',
       examplesModalVisible: false,
       style: {
@@ -139,7 +141,7 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({
           locale: {
             codeEditor: 'Code Editor',
-            compact: 'Compact',
+            cardLayout: 'CardLayout',
             examples: 'Examples',
             graphicalEditor: 'Graphical Editor',
             language: 'Language',
@@ -155,7 +157,7 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({
           locale: {
             codeEditor: 'Code Editor',
-            compact: 'Kompakt',
+            cardLayout: 'CardLayout',
             examples: 'Beispiele',
             graphicalEditor: 'Grafischer Editor',
             language: 'Sprache',
@@ -171,7 +173,7 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({
           locale: {
             codeEditor: 'Editor de código',
-            compact: 'Compacto',
+            cardLayout: 'CardLayout',
             examples: 'Ejemplos',
             graphicalEditor: 'Editor gráfico',
             language: 'Idioma',
@@ -187,7 +189,7 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({
           locale: {
             codeEditor: 'Éditeur de code',
-            compact: 'Compact',
+            cardLayout: 'CardLayout',
             examples: 'Exemples',
             graphicalEditor: 'Éditeur graphique',
             language: 'Langue',
@@ -203,7 +205,8 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({
           locale: {
             codeEditor: '代码编辑器',
-            compact: '紧凑',
+            // TODO
+            cardLayout: 'CardLayout',
             examples: '例子',
             graphicalEditor: '图形编辑器',
             language: '语言',
@@ -219,7 +222,7 @@ class App extends React.Component<AppProps, AppState> {
           this.setState({
             locale: {
               codeEditor: 'Code Editor',
-              compact: 'Compact',
+              cardLayout: 'CardLayout',
               examples: 'Examples',
               graphicalEditor: 'Graphical Editor',
               language: 'Language',
@@ -238,8 +241,8 @@ class App extends React.Component<AppProps, AppState> {
     this.setState({ruleRendererType});
   }
 
-  onCompactSwitchChange = (compact: boolean) => {
-    this.setState({compact});
+  onCardLayoutSwitchChange = (cardLayout: boolean) => {
+    this.setState({cardLayout});
   }
 
   onExamplesButtonClicked = () => {
@@ -270,7 +273,7 @@ class App extends React.Component<AppProps, AppState> {
       locale,
       style,
       data,
-      compact,
+      cardLayout,
       ruleRendererType
     } = this.state;
 
@@ -346,10 +349,10 @@ class App extends React.Component<AppProps, AppState> {
                   <RadioButton value="ch">中文</RadioButton>
                 </RadioGroup>
               </Form.Item>
-              <Form.Item label={locale.compact}>
+              <Form.Item label={locale.cardLayout}>
                 <Switch
-                  checked={compact}
-                  onChange={this.onCompactSwitchChange}
+                  checked={cardLayout}
+                  onChange={this.onCardLayoutSwitchChange}
                 />
               </Form.Item>
               <Form.Item label="Symbolizer Renderer">
@@ -403,20 +406,32 @@ class App extends React.Component<AppProps, AppState> {
           <div className="main-content">
             <div className="gui-wrapper">
               <h2>{locale.graphicalEditor}</h2>
-              <Style
-                style={style}
-                data={data}
-                onStyleChange={(style: GsStyle) => {
-                  this.setState({style});
-                }}
-                iconLibraries={iconLibraryConfig}
-                compact={compact}
-                ruleRendererType={ruleRendererType}
-                sldRendererProps={{
-                  wmsBaseUrl: 'https://ows-demo.terrestris.de/geoserver/ows?',
-                  layer: 'terrestris:bundeslaender'
-                }}
-              />
+              {cardLayout ? (
+                <CardStyle
+                  style={style}
+                  data={data}
+                  onStyleChange={(style: GsStyle) => {
+                    this.setState({style});
+                  }}
+                  iconLibraries={iconLibraryConfig}
+                  rendererType={ruleRendererType}
+                />
+              ) : (
+                <Style
+                  style={style}
+                  data={data}
+                  onStyleChange={(style: GsStyle) => {
+                    this.setState({style});
+                  }}
+                  iconLibraries={iconLibraryConfig}
+                  compact={true}
+                  ruleRendererType={ruleRendererType}
+                  sldRendererProps={{
+                    wmsBaseUrl: 'https://ows-demo.terrestris.de/geoserver/ows?',
+                    layer: 'terrestris:bundeslaender'
+                  }}
+                />
+              )}
             </div>
             <div className="right-wrapper">
               <Collapse defaultActiveKey={['code-editor']}>
