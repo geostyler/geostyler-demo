@@ -103,7 +103,7 @@ class App extends React.Component<AppProps, AppState> {
     this.state = {
       locale: {
         codeEditor: 'Code Editor',
-        cardLayout: 'CardLayout',
+        cardLayout: 'CardLayout (Beta)',
         examples: 'Examples',
         graphicalEditor: 'Graphical Editor',
         language: 'Language',
@@ -141,7 +141,7 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({
           locale: {
             codeEditor: 'Code Editor',
-            cardLayout: 'CardLayout',
+            cardLayout: 'CardLayout (Beta)',
             examples: 'Examples',
             graphicalEditor: 'Graphical Editor',
             language: 'Language',
@@ -157,7 +157,7 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({
           locale: {
             codeEditor: 'Code Editor',
-            cardLayout: 'CardLayout',
+            cardLayout: 'CardLayout (Beta)',
             examples: 'Beispiele',
             graphicalEditor: 'Grafischer Editor',
             language: 'Sprache',
@@ -173,7 +173,7 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({
           locale: {
             codeEditor: 'Editor de código',
-            cardLayout: 'CardLayout',
+            cardLayout: 'CardLayout (Beta)',
             examples: 'Ejemplos',
             graphicalEditor: 'Editor gráfico',
             language: 'Idioma',
@@ -189,7 +189,7 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({
           locale: {
             codeEditor: 'Éditeur de code',
-            cardLayout: 'CardLayout',
+            cardLayout: 'CardLayout (Beta)',
             examples: 'Exemples',
             graphicalEditor: 'Éditeur graphique',
             language: 'Langue',
@@ -205,8 +205,7 @@ class App extends React.Component<AppProps, AppState> {
         this.setState({
           locale: {
             codeEditor: '代码编辑器',
-            // TODO
-            cardLayout: 'CardLayout',
+            cardLayout: 'CardLayout (Beta)',
             examples: '例子',
             graphicalEditor: '图形编辑器',
             language: '语言',
@@ -222,7 +221,7 @@ class App extends React.Component<AppProps, AppState> {
           this.setState({
             locale: {
               codeEditor: 'Code Editor',
-              cardLayout: 'CardLayout',
+              cardLayout: 'CardLayout (Beta)',
               examples: 'Examples',
               graphicalEditor: 'Graphical Editor',
               language: 'Language',
