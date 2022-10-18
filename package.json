@@ -14,7 +14,7 @@
     "geostyler-legend": "^2.1.0",
     "geostyler-shapefile-parser": "^1.0.0",
     "geostyler-sld-parser": "^3.0.0",
-    "geostyler-style": "^5.0.0",
+    "geostyler-style": "^7.1.1",
     "geostyler-wfs-parser": "^1.0.1",
     "moment": "^2.29.0",
     "ol": "^6.5.0",
