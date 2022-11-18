@@ -48,6 +48,8 @@ import OlView from 'ol/View';
 import OlLayerTile from 'ol/layer/Tile';
 import OlSourceTileWMS from 'ol/source/TileWMS';
 import { fromLonLat } from 'ol/proj';
+import Tooltip from 'antd/es/tooltip';
+import { ExclamationOutlined } from '@ant-design/icons';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -62,6 +64,7 @@ export interface AppLocale extends GeoStylerLocale {
   legend: string;
   previewMap: string;
   loadedSuccess: string;
+  previewMapDataProjection: string;
 }
 
 // default props
@@ -117,6 +120,7 @@ class App extends React.Component<AppProps, AppState> {
         legend: 'Legend',
         previewMap: 'Preview Map',
         loadedSuccess: 'Loaded successfully!',
+        previewMapDataProjection: 'The sample data is expected in the projection EPSG:4326.',
         ...GsLocale.en_US
       },
       cardLayout: false,
@@ -155,6 +159,7 @@ class App extends React.Component<AppProps, AppState> {
             legend: 'Legend',
             previewMap: 'Preview Map',
             loadedSuccess: 'Loaded successfully!',
+            previewMapDataProjection: 'Projection of sample data is expected to be EPSG:4326',
             ...GsLocale.en_US
           }
         });
@@ -171,6 +176,7 @@ class App extends React.Component<AppProps, AppState> {
             legend: 'Legende',
             previewMap: 'Vorschau Karte',
             loadedSuccess: 'Erfolgreich geladen!',
+            previewMapDataProjection: 'Die Beispieldaten werden in der Projektion EPSG:4326 erwartet.',
             ...GsLocale.de_DE
           }
         });
@@ -187,6 +193,7 @@ class App extends React.Component<AppProps, AppState> {
             legend: 'Leyenda',
             previewMap: 'Mapa de previsualización',
             loadedSuccess: 'Cargado con éxito!',
+            previewMapDataProjection: 'Los datos de la muestra se esperan en la proyección EPSG:4326.',
             ...GsLocale.es_ES
           }
         });
@@ -203,6 +210,7 @@ class App extends React.Component<AppProps, AppState> {
             loadedSuccess: 'Chargement réussi!',
             legend: 'Légende',
             previewMap: 'Carte de prévisualisation',
+            previewMapDataProjection: 'Les données d\'exemple sont attendues dans la projection EPSG:4326.',
             ...GsLocale.fr_FR
           }
         });
@@ -219,24 +227,26 @@ class App extends React.Component<AppProps, AppState> {
             legend: 'Legend',
             previewMap: '预览图',
             loadedSuccess: '成功加载',
+            previewMapDataProjection: '预计样本数据将在EPSG:4326的预测中出现。',
             ...GsLocale.zh_CN
           }
         });
         break;
       default:
         moment.locale('en');
-          this.setState({
-            locale: {
-              codeEditor: 'Code Editor',
-              cardLayout: 'CardLayout (Beta)',
-              examples: 'Examples',
-              graphicalEditor: 'Graphical Editor',
-              language: 'Language',
-              legend: 'Legend',
-              previewMap: 'Preview Map',
-              loadedSuccess: 'Loaded successfully!',
-              ...GsLocale.en_US
-            }
+        this.setState({
+          locale: {
+            codeEditor: 'Code Editor',
+            cardLayout: 'CardLayout (Beta)',
+            examples: 'Examples',
+            graphicalEditor: 'Graphical Editor',
+            language: 'Language',
+            legend: 'Legend',
+            previewMap: 'Preview Map',
+            loadedSuccess: 'Loaded successfully!',
+            previewMapDataProjection: 'string',
+            ...GsLocale.en_US
+          }
         });
         break;
     }
@@ -327,7 +337,7 @@ class App extends React.Component<AppProps, AppState> {
       target: 'map',
       view: new OlView({
         center: fromLonLat([-122.416667, 37.783333]),
-        zoom: 12,
+        zoom: 12
       }),
     });
 
@@ -456,7 +466,14 @@ class App extends React.Component<AppProps, AppState> {
                     showCopyButton={true}
                   />
                 </Collapse.Panel>
-                <Collapse.Panel header={locale.previewMap} key="preview-map">
+                <Collapse.Panel
+                  header={locale.previewMap} key="preview-map"
+                  extra={
+                    <Tooltip title={locale.previewMapDataProjection}>
+                      <ExclamationOutlined />
+                    </Tooltip>
+                  }
+                >
                   <PreviewMap
                     style={style}
                     map={map}
