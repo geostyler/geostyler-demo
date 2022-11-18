@@ -85,10 +85,17 @@ interface AppState {
 
 class App extends React.Component<AppProps, AppState> {
 
-  private _sldStyleParser = new SldStyleParser();
+  private _sldStyleParser = new SldStyleParser({
+    builderOptions: {
+      format: true
+    }
+  });
 
   private _sldStyleParserSE = new SldStyleParser({
-    sldVersion: '1.1.0'
+    sldVersion: '1.1.0',
+    builderOptions: {
+      format: true
+    }
   });
 
   private _geoJsonParser = new GeoJsonParser();
