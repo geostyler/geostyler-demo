@@ -1,4 +1,5 @@
 const path = require('path');
+const packageLockJson = require('../package-lock.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -53,6 +54,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       title: 'Geostyler Demo',
+      geostylerVersion: packageLockJson.packages['node_modules/geostyler'].version,
       template: path.join(__dirname, '..', 'public', 'index.html'),
       hash: true,
       minify: {
