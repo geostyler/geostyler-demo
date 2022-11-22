@@ -1,17 +1,14 @@
 import * as React from 'react';
 
 import {
-  Radio,
   Switch,
   Button,
   Collapse,
   Form,
-  notification
+  notification,
+  Radio
 } from 'antd';
 import ConfigProvider from 'antd/lib/config-provider';
-import * as moment from 'moment';
-import 'moment/locale/de';
-import 'moment/locale/es';
 
 import {
   Style as GsStyle,
@@ -48,9 +45,10 @@ import OlView from 'ol/View';
 import OlLayerTile from 'ol/layer/Tile';
 import OlSourceTileWMS from 'ol/source/TileWMS';
 import { fromLonLat } from 'ol/proj';
+import Tooltip from 'antd/es/tooltip';
+import { ExclamationOutlined } from '@ant-design/icons';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
 
 // i18n
 export interface AppLocale extends GeoStylerLocale {
@@ -62,6 +60,7 @@ export interface AppLocale extends GeoStylerLocale {
   legend: string;
   previewMap: string;
   loadedSuccess: string;
+  previewMapDataProjection: string;
 }
 
 // default props
@@ -117,6 +116,7 @@ class App extends React.Component<AppProps, AppState> {
         legend: 'Legend',
         previewMap: 'Preview Map',
         loadedSuccess: 'Loaded successfully!',
+        previewMapDataProjection: 'The sample data is expected in the projection EPSG:4326.',
         ...GsLocale.en_US
       },
       cardLayout: false,
@@ -140,107 +140,6 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   public static componentName: string = 'App';
-
-  onLangChange = (e: any) => {
-    switch (e.target.value) {
-      case 'en':
-        moment.locale('en');
-        this.setState({
-          locale: {
-            codeEditor: 'Code Editor',
-            cardLayout: 'CardLayout (Beta)',
-            examples: 'Examples',
-            graphicalEditor: 'Graphical Editor',
-            language: 'Language',
-            legend: 'Legend',
-            previewMap: 'Preview Map',
-            loadedSuccess: 'Loaded successfully!',
-            ...GsLocale.en_US
-          }
-        });
-        break;
-      case 'de':
-        moment.locale('de');
-        this.setState({
-          locale: {
-            codeEditor: 'Code Editor',
-            cardLayout: 'CardLayout (Beta)',
-            examples: 'Beispiele',
-            graphicalEditor: 'Grafischer Editor',
-            language: 'Sprache',
-            legend: 'Legende',
-            previewMap: 'Vorschau Karte',
-            loadedSuccess: 'Erfolgreich geladen!',
-            ...GsLocale.de_DE
-          }
-        });
-        break;
-      case 'es':
-        moment.locale('es');
-        this.setState({
-          locale: {
-            codeEditor: 'Editor de código',
-            cardLayout: 'CardLayout (Beta)',
-            examples: 'Ejemplos',
-            graphicalEditor: 'Editor gráfico',
-            language: 'Idioma',
-            legend: 'Leyenda',
-            previewMap: 'Mapa de previsualización',
-            loadedSuccess: 'Cargado con éxito!',
-            ...GsLocale.es_ES
-          }
-        });
-        break;
-      case 'fr':
-        moment.locale('fr');
-        this.setState({
-          locale: {
-            codeEditor: 'Éditeur de code',
-            cardLayout: 'CardLayout (Beta)',
-            examples: 'Exemples',
-            graphicalEditor: 'Éditeur graphique',
-            language: 'Langue',
-            loadedSuccess: 'Chargement réussi!',
-            legend: 'Légende',
-            previewMap: 'Carte de prévisualisation',
-            ...GsLocale.fr_FR
-          }
-        });
-        break;
-      case 'ch':
-        moment.locale('zh-cn');
-        this.setState({
-          locale: {
-            codeEditor: '代码编辑器',
-            cardLayout: 'CardLayout (Beta)',
-            examples: '例子',
-            graphicalEditor: '图形编辑器',
-            language: '语言',
-            legend: 'Legend',
-            previewMap: '预览图',
-            loadedSuccess: '成功加载',
-            ...GsLocale.zh_CN
-          }
-        });
-        break;
-      default:
-        moment.locale('en');
-          this.setState({
-            locale: {
-              codeEditor: 'Code Editor',
-              cardLayout: 'CardLayout (Beta)',
-              examples: 'Examples',
-              graphicalEditor: 'Graphical Editor',
-              language: 'Language',
-              legend: 'Legend',
-              previewMap: 'Preview Map',
-              loadedSuccess: 'Loaded successfully!',
-              ...GsLocale.en_US
-            }
-        });
-        break;
-    }
-  }
 
   onRuleRendererChange = (e: any) => {
     const ruleRendererType = e.target.value;
@@ -327,7 +226,7 @@ class App extends React.Component<AppProps, AppState> {
       target: 'map',
       view: new OlView({
         center: fromLonLat([-122.416667, 37.783333]),
-        zoom: 12,
+        zoom: 12
       }),
     });
 
@@ -343,17 +242,9 @@ class App extends React.Component<AppProps, AppState> {
           <div className="gs-settings">
             <Form layout="inline">
               <Form.Item label={locale.language}>
-                <RadioGroup
-                  className="language-select"
-                  onChange={this.onLangChange}
-                  defaultValue="en"
-                >
-                  <RadioButton value="en">EN</RadioButton>
-                  <RadioButton value="de">DE</RadioButton>
-                  <RadioButton value="es">ES</RadioButton>
-                  <RadioButton value="fr">FR</RadioButton>
-                  <RadioButton value="ch">中文</RadioButton>
-                </RadioGroup>
+                <LanguageSwitcher onChange={(locale) => {
+                  this.setState({ locale });
+                }} />
               </Form.Item>
               <Form.Item label={locale.cardLayout}>
                 <Switch
@@ -362,14 +253,14 @@ class App extends React.Component<AppProps, AppState> {
                 />
               </Form.Item>
               <Form.Item label="Symbolizer Renderer">
-                <RadioGroup
-                  className="language-select"
+                <Radio.Group
+                  className="renderer-select"
                   onChange={this.onRuleRendererChange}
                   value={ruleRendererType}
                 >
-                  <RadioButton value="OpenLayers">OpenLayers</RadioButton>
-                  <RadioButton value="SLD">SLD</RadioButton>
-                </RadioGroup>
+                  <Radio.Button value="OpenLayers">OpenLayers</Radio.Button>
+                  <Radio.Button value="SLD">SLD</Radio.Button>
+                </Radio.Group>
               </Form.Item>
               <Form.Item>
                 <StyleLoader
@@ -456,7 +347,14 @@ class App extends React.Component<AppProps, AppState> {
                     showCopyButton={true}
                   />
                 </Collapse.Panel>
-                <Collapse.Panel header={locale.previewMap} key="preview-map">
+                <Collapse.Panel
+                  header={locale.previewMap} key="preview-map"
+                  extra={
+                    <Tooltip title={locale.previewMapDataProjection}>
+                      <ExclamationOutlined />
+                    </Tooltip>
+                  }
+                >
                   <PreviewMap
                     style={style}
                     map={map}
