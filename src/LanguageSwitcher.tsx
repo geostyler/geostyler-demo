@@ -1,7 +1,7 @@
-import React from "react";
-import { Select } from "antd";
-import { FC } from "react";
-import { AppLocale } from "./App";
+import React from 'react';
+import { Select } from 'antd';
+import { FC } from 'react';
+import type { AppLocale } from './App';
 import moment from 'moment';
 import 'moment/locale/de';
 import 'moment/locale/es';
