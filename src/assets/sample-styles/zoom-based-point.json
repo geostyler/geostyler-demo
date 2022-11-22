@@ -11,7 +11,7 @@
           "kind": "Mark",
           "color": "#CC3300",
           "radius": 6,
-          "wellKnownName": "Circle"
+          "wellKnownName": "circle"
         }
       ]
     },
@@ -26,7 +26,7 @@
           "kind": "Mark",
           "color": "#CC3300",
           "radius": 4,
-          "wellKnownName": "Circle"
+          "wellKnownName": "circle"
         }
       ]
     },
@@ -40,7 +40,7 @@
           "kind": "Mark",
           "color": "#CC3300",
           "radius": 2,
-          "wellKnownName": "Circle"
+          "wellKnownName": "circle"
         }
       ]
     }
