@@ -6,7 +6,7 @@
       "symbolizers": [
         {
           "kind": "Mark",
-          "wellKnownName": "Circle",
+          "wellKnownName": "circle",
           "color": "#FF00AA"
         }
       ]
