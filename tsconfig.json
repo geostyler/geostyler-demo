@@ -11,7 +11,11 @@
     "moduleResolution": "node",
     "rootDir": ".",
     "rootDirs": [
-      "./src/"
+      "./src/",
+      // "../geostyler",
+      // "../geostyler-style",
+      // "../geostyler-sld-parser",
+      // "../geostyler-openlayers-parser"
     ],
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
