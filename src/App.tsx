@@ -21,6 +21,7 @@ import {
 
 import GeoJsonParser from 'geostyler-geojson-parser';
 import SldStyleParser from 'geostyler-sld-parser';
+import MapboxStyleParser from 'geostyler-mapbox-parser';
 import ShapefileParser from 'geostyler-shapefile-parser';
 import WfsParser from 'geostyler-wfs-parser';
 
@@ -95,6 +96,10 @@ class App extends React.Component<AppProps, AppState> {
     builderOptions: {
       format: true
     }
+  });
+
+  private _mapBoxStyleParser = new MapboxStyleParser({
+    pretty: true
   });
 
   private _geoJsonParser = new GeoJsonParser();
@@ -265,6 +270,7 @@ class App extends React.Component<AppProps, AppState> {
               <Form.Item>
                 <StyleLoader
                   parsers={[
+                    this._mapBoxStyleParser,
                     this._sldStyleParser,
                     this._sldStyleParserSE
                   ]}
@@ -288,6 +294,13 @@ class App extends React.Component<AppProps, AppState> {
                       message: locale.loadedSuccess
                     });
                     this.setState({data});
+                  }}
+                  uploadButtonProps={{
+                    onRemove: () => {
+                      this.setState({
+                        data: undefined
+                      });
+                    }
                   }}
                 />
               </Form.Item>
@@ -336,6 +349,7 @@ class App extends React.Component<AppProps, AppState> {
                   <CodeEditor
                     style={style}
                     parsers={[
+                      this._mapBoxStyleParser,
                       this._sldStyleParser,
                       this._sldStyleParserSE
                     ]}
