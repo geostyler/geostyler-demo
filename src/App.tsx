@@ -49,6 +49,7 @@ import { fromLonLat } from 'ol/proj';
 import Tooltip from 'antd/es/tooltip';
 import { ExclamationOutlined } from '@ant-design/icons';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import QGISStyleParser from 'geostyler-qgis-parser';
 
 
 // i18n
@@ -101,6 +102,8 @@ class App extends React.Component<AppProps, AppState> {
   private _mapBoxStyleParser = new MapboxStyleParser({
     pretty: true
   });
+
+  private _qgisParser = new QGISStyleParser();
 
   private _geoJsonParser = new GeoJsonParser();
 
@@ -271,6 +274,7 @@ class App extends React.Component<AppProps, AppState> {
                 <StyleLoader
                   parsers={[
                     this._mapBoxStyleParser,
+                    this._qgisParser,
                     this._sldStyleParser,
                     this._sldStyleParserSE
                   ]}
@@ -350,6 +354,7 @@ class App extends React.Component<AppProps, AppState> {
                     style={style}
                     parsers={[
                       this._mapBoxStyleParser,
+                      this._qgisParser,
                       this._sldStyleParser,
                       this._sldStyleParserSE
                     ]}
