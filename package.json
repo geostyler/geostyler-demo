@@ -12,6 +12,7 @@
     "geostyler-geojson-parser": "^1.0.1",
     "geostyler-legend": "^4.0.0",
     "geostyler-mapbox-parser": "^3.1.0",
+    "geostyler-qgis-parser": "^2.0.0",
     "geostyler-shapefile-parser": "^1.0.0",
     "geostyler-sld-parser": "^5.0.0",
     "geostyler-style": "^7.2.0",
