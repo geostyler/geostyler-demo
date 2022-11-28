@@ -131,18 +131,19 @@ class App extends React.Component<AppProps, AppState> {
       ruleRendererType: 'SLD',
       examplesModalVisible: false,
       style: {
-        name: 'Demo Style',
-        rules: [{
-          name: 'Rule 1',
-          symbolizers: [{
-            kind: 'Mark',
-            wellKnownName: 'square',
-            color: '#93c0ed',
-            strokeColor: '#1345c3',
-            strokeWidth: 5,
-            radius: 20
-          }]
-        }]
+        name: 'GeoStyler Demo',
+        rules: [
+          {
+            name: 'Rule 1',
+            symbolizers: [
+              {
+                kind: 'Line',
+                color: '#ff0000',
+                width: 5
+              }
+            ]
+          }
+        ]
       }
     };
   }
