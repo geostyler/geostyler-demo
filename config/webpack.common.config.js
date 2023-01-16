@@ -35,7 +35,6 @@ module.exports = {
       stream: require.resolve('stream-browserify')
     },
     alias: {
-      react: require.resolve('react'),
       // uncomment for development with npm link
       // 'geostyler': path.resolve('node_modules', 'geostyler'),
       // 'geostyler-style': path.resolve('node_modules', 'geostyler-style'),
