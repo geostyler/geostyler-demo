@@ -32,7 +32,8 @@ import {
   Style,
   StyleLoader,
   PreviewMap,
-  GeoStylerLocale
+  GeoStylerLocale,
+  GeoStylerContext
 } from 'geostyler';
 
 import CardStyle from 'geostyler/dist/Component/CardStyle/CardStyle';
@@ -50,6 +51,7 @@ import Tooltip from 'antd/es/tooltip';
 import { ExclamationOutlined } from '@ant-design/icons';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import QGISStyleParser from 'geostyler-qgis-parser';
+import { GeoStylerContextInterface } from 'geostyler/dist/context/GeoStylerContext/GeoStylerContext';
 
 
 // i18n
@@ -191,6 +193,14 @@ class App extends React.Component<AppProps, AppState> {
       ruleRendererType
     } = this.state;
 
+    const appContext: GeoStylerContextInterface = {
+      composition: {
+        Renderer: {
+          rendererType: ruleRendererType
+        }
+      }
+    };
+
     const legendRenderer = new LegendRenderer({
       maxColumnWidth: 300,
       maxColumnHeight: 300,
@@ -322,15 +332,16 @@ class App extends React.Component<AppProps, AppState> {
             <div className="gui-wrapper">
               <h2>{locale.graphicalEditor}</h2>
               {cardLayout ? (
-                <CardStyle
-                  style={style}
-                  data={data}
-                  onStyleChange={(style: GsStyle) => {
-                    this.setState({style});
-                  }}
-                  iconLibraries={iconLibraryConfig}
-                  rendererType={ruleRendererType}
-                />
+                <GeoStylerContext.Provider value={appContext}>
+                  <CardStyle
+                    style={style}
+                    data={data}
+                    onStyleChange={(style: GsStyle) => {
+                      this.setState({style});
+                    }}
+                    iconLibraries={iconLibraryConfig}
+                  />
+                </GeoStylerContext.Provider>
               ) : (
                 <Style
                   style={style}
