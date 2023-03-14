@@ -43,7 +43,7 @@
     "html-webpack-plugin": "5.5.0",
     "image-webpack-loader": "8.1.0",
     "stream-browserify": "3.0.0",
-    "style-loader": "3.3.1",
+    "style-loader": "3.3.2",
     "timers-browserify": "2.0.12",
     "ts-loader": "9.4.2",
     "tslib": "2.5.0",
