@@ -71,31 +71,21 @@
   background-color: #e8e8e8;
   flex: 2;
   max-width: calc(100% / 3);
-}
-
-.right-wrapper .ant-collapse {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: unset;
-}
-
-.right-wrapper .ant-collapse .ant-collapse-item-active {
-  flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.right-wrapper .ant-collapse .ant-collapse-content-active {
-  flex: 1;
-}
-
-.right-wrapper .ant-collapse .ant-collapse-content-box {
+.code-display-container {
+  margin-top: 5px;
   height: 100%;
 }
 
-.right-wrapper .ant-collapse .ant-collapse-content > .ant-collapse-content-box {
-  padding: unset;
+.code-display-container > div {
+  height: 100%;
+}
+
+.code-display-container > div.split-map-display {
+  height: 50%;
 }
 
 .gs-symbolizer-preview {
