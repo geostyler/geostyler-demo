@@ -158,7 +158,7 @@ class App extends React.Component<AppProps, AppState> {
 
   onStyleModeChange = (e: any) => {
     const styleDisplayMode = e.target.value;
-    this.setState({styleDisplayMode})
+    this.setState({styleDisplayMode});
   }
 
   onCardLayoutSwitchChange = (cardLayout: boolean) => {
@@ -365,7 +365,7 @@ class App extends React.Component<AppProps, AppState> {
               )}
             </div>
             <div className="right-wrapper">
-            <Form layout="inline">
+            <Form layout="inline" className='display-radio'>
               <Form.Item label="Display">
                   <Radio.Group
                     className="renderer-select"
@@ -382,8 +382,7 @@ class App extends React.Component<AppProps, AppState> {
               {/* <Collapse defaultActiveKey={['code-editor']}> */}
                 {/* <Collapse.Panel header={locale.codeEditor} key="code-editor"> */}
               <div className="code-display-container">
-                <div hidden={styleDisplayMode !== 'Code' && styleDisplayMode !== 'Split'} 
-                  className={styleDisplayMode === 'Split' ? 'split-map-display' : ''}>
+                <div hidden={styleDisplayMode !== 'Code' && styleDisplayMode !== 'Split'}>
                   <CodeEditor
                     style={style}
                     parsers={[
@@ -392,7 +391,6 @@ class App extends React.Component<AppProps, AppState> {
                       this._sldStyleParser,
                       this._sldStyleParserSE
                     ]}
-
                     defaultParser={this._sldStyleParser}
                     onStyleChange={(style: GsStyle) => {
                       this.setState({style});
@@ -401,10 +399,8 @@ class App extends React.Component<AppProps, AppState> {
                     showCopyButton={true}
                   />
                 </div>
-              
-                <div hidden={styleDisplayMode !== 'Map' && styleDisplayMode !== 'Split'}
-                    className={styleDisplayMode === 'Split' ? 'split-map-display' : ''}>
-                  <p>{locale.previewMapDataProjection}</p>
+                <div hidden={styleDisplayMode !== 'Map' && styleDisplayMode !== 'Split'}>
+                  <p className='preview-map-info'>{locale.previewMapDataProjection}</p>
                   <PreviewMap
                     style={style}
                     map={map}
@@ -412,13 +408,11 @@ class App extends React.Component<AppProps, AppState> {
                     data={data}
                   />
                 </div>
-          
-                <div hidden={styleDisplayMode !== 'Legend'}>
+                <div className='legend-wrapper' hidden={styleDisplayMode !== 'Legend'}>
                   <h2>{locale.legend}</h2>
                   <div id="legend"></div>
                 </div>
               </div>
-
             </div>
           </div>
           <ExamplesDialog
