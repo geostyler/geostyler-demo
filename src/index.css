@@ -30,13 +30,15 @@ body > footer {
 }
 
 body > header {
+  position: absolute;
+  right: 0;
   padding: 10px;
   font-size: 1.5em;
-  background-color: #ffe999;
 }
 
 body > footer {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   background-color: #bec4e3;
