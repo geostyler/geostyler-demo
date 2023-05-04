@@ -59,6 +59,7 @@ export interface AppLocale extends GeoStylerLocale {
   graphicalEditor: string;
   language: string;
   legend: string;
+  splitView: string;
   previewMap: string;
   loadedSuccess: string;
   previewMapDataProjection: string;
@@ -122,6 +123,7 @@ class App extends React.Component<AppProps, AppState> {
         graphicalEditor: 'Graphical Editor',
         language: 'Language',
         legend: 'Legend',
+        splitView: 'Split View',
         previewMap: 'Preview Map',
         loadedSuccess: 'Loaded successfully!',
         previewMapDataProjection: 'The sample data is expected in the projection EPSG:4326.',
@@ -372,10 +374,10 @@ class App extends React.Component<AppProps, AppState> {
                     onChange={this.onStyleModeChange}
                     value={styleDisplayMode}
                   >
-                    <Radio.Button value="Split">Split</Radio.Button>
-                    <Radio.Button value="Code">Code</Radio.Button>
-                    <Radio.Button value="Map">Map</Radio.Button>
-                    <Radio.Button value="Legend">Legend</Radio.Button>
+                    <Radio.Button value="Split">{locale.splitView}</Radio.Button>
+                    <Radio.Button value="Code">{locale.codeEditor}</Radio.Button>
+                    <Radio.Button value="Map">{locale.previewMap}</Radio.Button>
+                    <Radio.Button value="Legend">{locale.legend}</Radio.Button>
                   </Radio.Group>
                 </Form.Item>
               </Form>
