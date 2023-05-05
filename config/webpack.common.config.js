@@ -1,6 +1,7 @@
 const path = require('path');
 const packageLockJson = require('../package-lock.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: ['./src/index.tsx'],
@@ -14,14 +15,19 @@ module.exports = {
       test: /\.css$/,
       use: ['style-loader', 'css-loader']
     }, {
-      test: /\.scss$/,
-      use: ['style-loader', 'css-loader', {
-        loader: 'sass-loader',
+      test: /\.less$/,
+      use: ['style-loader', 'css-loader',
+      {
+        loader: 'less-loader', // compiles Less to CSS
         options: {
-          sassOptions: {
-            includePaths: ['./node_modules']
-          }
-        }
+          lessOptions: { // If you are using less-loader@5 please spread the lessOptions to options directly
+            modifyVars: {
+              'primary-color': '#162162',
+              'link-color': '#162162'
+            },
+            javascriptEnabled: true,
+          },
+        },
       }]
     }, {
       test: /\.(jpe?g|png|gif|svg|ico|woff|woff2|ttf|eot)$/i,
@@ -50,10 +56,14 @@ module.exports = {
     path: path.resolve(__dirname, '..', 'dist')
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.GEOSTYLER_VERSION': JSON.stringify(
+        packageLockJson.packages['node_modules/geostyler'].version
+      ),
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       title: 'Geostyler Demo',
-      geostylerVersion: packageLockJson.packages['node_modules/geostyler'].version,
       template: path.join(__dirname, '..', 'public', 'index.html'),
       hash: true,
       minify: {

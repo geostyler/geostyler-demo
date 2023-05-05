@@ -1,0 +1,52 @@
+.examples-dialog {
+  font-family: 'Aldrich', sans-serif;
+
+  .ant-modal-footer,
+  .ant-modal-header {
+    background-color: #ffde66;
+    border-color: #ffc800;
+    border-width: 3px;
+  }
+
+  .ant-modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #e8e8e8;
+  }
+
+  .example-card {
+    overflow: hidden;
+    cursor: pointer;
+    justify-self: stretch;
+    text-align: center;
+    align-self: stretch;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ffc800;
+    background-color: white;
+    height: 100px;
+
+    &:hover {
+      background-color: #ffc800;
+    }
+
+    .selected {
+      background-color: #ffde66;
+
+      &:hover {
+        background-color: #ffc800;
+      }
+    }
+
+    .title {
+      font-size: 1.5em;
+      color: #162162;
+      pointer-events: none;
+    }
+
+    .description {
+      pointer-events: none;
+    }
+  }
+
+}
