@@ -1,8 +1,8 @@
 .app {
-  height: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  height: 100%;
 }
 
 .gs-header {
@@ -50,7 +50,7 @@
 .gui-wrapper {
   margin: 10px 5px 10px 10px;;
   background-color: #e8e8e8;
-  flex: 3;
+  flex: 4;
 }
 
 .gui-wrapper>h2,
@@ -70,44 +70,33 @@
   margin: 10px 10px 10px 5px;
   background-color: #e8e8e8;
   flex: 2;
-  max-width: calc(100% / 3);
-}
-
-.right-wrapper .ant-collapse {
-  height: 100%;
   display: flex;
   flex-direction: column;
-  padding: unset;
 }
 
-.right-wrapper .ant-collapse .ant-collapse-item-active {
+.right-wrapper > .display-radio,
+.legend-wrapper {
+  padding: 0.5em;
+}
+.preview-map-info {
+  padding: 0 0.5em;
+}
+
+.code-display-container {
+  overflow: hidden;
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.right-wrapper .ant-collapse .ant-collapse-content-active {
+.code-display-container > div {
+  overflow: hidden;
   flex: 1;
-}
-
-.right-wrapper .ant-collapse .ant-collapse-content-box {
-  height: 100%;
-}
-
-.right-wrapper .ant-collapse .ant-collapse-content > .ant-collapse-content-box {
-  padding: unset;
-}
-
-.gs-symbolizer-preview {
-  height: 100%;
-}
-
-.gs-symbolizer-preview .map {
-  height: 100%;
 }
 
 #legend {
-  padding: 20px;
+  padding: 1em;
+  background-color: white;
 }
 
 .gs-rule-overview .gs-rule-field-container .gs-rule-field-container-header .gs-min-scaledenominator .ant-input-number {

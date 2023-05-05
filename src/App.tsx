@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
   Switch,
   Button,
-  Collapse,
   Form,
   notification,
   Radio
@@ -47,8 +46,6 @@ import OlView from 'ol/View';
 import OlLayerTile from 'ol/layer/Tile';
 import OlSourceTileWMS from 'ol/source/TileWMS';
 import { fromLonLat } from 'ol/proj';
-import Tooltip from 'antd/es/tooltip';
-import { ExclamationOutlined } from '@ant-design/icons';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import QGISStyleParser from 'geostyler-qgis-parser';
 import { GeoStylerContextInterface } from 'geostyler/dist/context/GeoStylerContext/GeoStylerContext';
@@ -62,6 +59,7 @@ export interface AppLocale extends GeoStylerLocale {
   graphicalEditor: string;
   language: string;
   legend: string;
+  splitView: string;
   previewMap: string;
   loadedSuccess: string;
   previewMapDataProjection: string;
@@ -83,6 +81,7 @@ interface AppState {
   locale: AppLocale & GeoStylerLocale;
   cardLayout: boolean;
   ruleRendererType?: 'SLD' | 'OpenLayers';
+  styleDisplayMode?: 'Map' | 'Code' | 'Split' | 'Legend';
   examplesModalVisible: boolean;
 }
 
@@ -124,6 +123,7 @@ class App extends React.Component<AppProps, AppState> {
         graphicalEditor: 'Graphical Editor',
         language: 'Language',
         legend: 'Legend',
+        splitView: 'Split View',
         previewMap: 'Preview Map',
         loadedSuccess: 'Loaded successfully!',
         previewMapDataProjection: 'The sample data is expected in the projection EPSG:4326.',
@@ -131,6 +131,7 @@ class App extends React.Component<AppProps, AppState> {
       },
       cardLayout: false,
       ruleRendererType: 'SLD',
+      styleDisplayMode: 'Split',
       examplesModalVisible: false,
       style: {
         name: 'GeoStyler Demo',
@@ -155,6 +156,11 @@ class App extends React.Component<AppProps, AppState> {
   onRuleRendererChange = (e: any) => {
     const ruleRendererType = e.target.value;
     this.setState({ruleRendererType});
+  }
+
+  onStyleModeChange = (e: any) => {
+    const styleDisplayMode = e.target.value;
+    this.setState({styleDisplayMode});
   }
 
   onCardLayoutSwitchChange = (cardLayout: boolean) => {
@@ -190,7 +196,8 @@ class App extends React.Component<AppProps, AppState> {
       style,
       data,
       cardLayout,
-      ruleRendererType
+      ruleRendererType,
+      styleDisplayMode
     } = this.state;
 
     const appContext: GeoStylerContextInterface = {
@@ -360,8 +367,24 @@ class App extends React.Component<AppProps, AppState> {
               )}
             </div>
             <div className="right-wrapper">
-              <Collapse defaultActiveKey={['code-editor']}>
-                <Collapse.Panel header={locale.codeEditor} key="code-editor">
+            <Form layout="inline" className='display-radio'>
+              <Form.Item label="Display">
+                  <Radio.Group
+                    className="renderer-select"
+                    onChange={this.onStyleModeChange}
+                    value={styleDisplayMode}
+                  >
+                    <Radio.Button value="Split">{locale.splitView}</Radio.Button>
+                    <Radio.Button value="Code">{locale.codeEditor}</Radio.Button>
+                    <Radio.Button value="Map">{locale.previewMap}</Radio.Button>
+                    <Radio.Button value="Legend">{locale.legend}</Radio.Button>
+                  </Radio.Group>
+                </Form.Item>
+              </Form>
+              {/* <Collapse defaultActiveKey={['code-editor']}> */}
+                {/* <Collapse.Panel header={locale.codeEditor} key="code-editor"> */}
+              <div className="code-display-container">
+                <div hidden={styleDisplayMode !== 'Code' && styleDisplayMode !== 'Split'}>
                   <CodeEditor
                     style={style}
                     parsers={[
@@ -377,26 +400,21 @@ class App extends React.Component<AppProps, AppState> {
                     showSaveButton={true}
                     showCopyButton={true}
                   />
-                </Collapse.Panel>
-                <Collapse.Panel
-                  header={locale.previewMap} key="preview-map"
-                  extra={
-                    <Tooltip title={locale.previewMapDataProjection}>
-                      <ExclamationOutlined />
-                    </Tooltip>
-                  }
-                >
+                </div>
+                <div hidden={styleDisplayMode !== 'Map' && styleDisplayMode !== 'Split'}>
+                  <p className='preview-map-info'>{locale.previewMapDataProjection}</p>
                   <PreviewMap
                     style={style}
                     map={map}
                     mapHeight="100%"
                     data={data}
                   />
-                </Collapse.Panel>
-                <Collapse.Panel header={locale.legend} key="legend">
-                  <div id="legend" />
-                </Collapse.Panel>
-              </Collapse>
+                </div>
+                <div className='legend-wrapper' hidden={styleDisplayMode !== 'Legend'}>
+                  <h2>{locale.legend}</h2>
+                  <div id="legend"></div>
+                </div>
+              </div>
             </div>
           </div>
           <ExamplesDialog
