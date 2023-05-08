@@ -38,7 +38,7 @@ import {
 import CardStyle from 'geostyler/dist/Component/CardStyle/CardStyle';
 
 import logo from './assets/logo.svg';
-import './App.css';
+import './App.less';
 import ExamplesDialog from './ExamplesDialog';
 import LegendRenderer from 'geostyler-legend/dist/LegendRenderer/LegendRenderer';
 import OlMap from 'ol/Map';
@@ -335,93 +335,106 @@ class App extends React.Component<AppProps, AppState> {
               </Form.Item>
             </Form>
           </div>
-          <div className="main-content">
-            <div className="gui-wrapper">
-              <h2>{locale.graphicalEditor}</h2>
-              {cardLayout ? (
-                <GeoStylerContext.Provider value={appContext}>
-                  <CardStyle
-                    style={style}
-                    data={data}
-                    onStyleChange={(style: GsStyle) => {
-                      this.setState({style});
-                    }}
-                    iconLibraries={iconLibraryConfig}
-                  />
-                </GeoStylerContext.Provider>
-              ) : (
-                <Style
+          <div className="left-wrapper">
+            <h2>{locale.graphicalEditor}</h2>
+            {cardLayout ? (
+              <GeoStylerContext.Provider value={appContext}>
+                <CardStyle
                   style={style}
                   data={data}
                   onStyleChange={(style: GsStyle) => {
                     this.setState({style});
                   }}
                   iconLibraries={iconLibraryConfig}
-                  compact={true}
-                  ruleRendererType={ruleRendererType}
-                  sldRendererProps={{
-                    wmsBaseUrl: 'https://ows-demo.terrestris.de/geoserver/ows?',
-                    layer: 'terrestris:bundeslaender'
-                  }}
                 />
-              )}
-            </div>
-            <div className="right-wrapper">
-            <Form layout="inline" className='display-radio'>
-              <Form.Item label="Display">
-                  <Radio.Group
-                    className="renderer-select"
-                    onChange={this.onStyleModeChange}
-                    value={styleDisplayMode}
-                  >
-                    <Radio.Button value="Split">{locale.splitView}</Radio.Button>
-                    <Radio.Button value="Code">{locale.codeEditor}</Radio.Button>
-                    <Radio.Button value="Map">{locale.previewMap}</Radio.Button>
-                    <Radio.Button value="Legend">{locale.legend}</Radio.Button>
-                  </Radio.Group>
-                </Form.Item>
-              </Form>
-              {/* <Collapse defaultActiveKey={['code-editor']}> */}
-                {/* <Collapse.Panel header={locale.codeEditor} key="code-editor"> */}
-              <div className="code-display-container">
-                <div hidden={styleDisplayMode !== 'Code' && styleDisplayMode !== 'Split'}>
-                  <CodeEditor
-                    style={style}
-                    parsers={[
-                      this._mapBoxStyleParser,
-                      this._qgisParser,
-                      this._sldStyleParser,
-                      this._sldStyleParserSE
-                    ]}
-                    defaultParser={this._sldStyleParser}
-                    onStyleChange={(style: GsStyle) => {
-                      this.setState({style});
-                    }}
-                    showSaveButton={true}
-                    showCopyButton={true}
-                  />
-                </div>
-                <div hidden={styleDisplayMode !== 'Map' && styleDisplayMode !== 'Split'}>
-                  <p className='preview-map-info'>{locale.previewMapDataProjection}</p>
-                  <PreviewMap
-                    style={style}
-                    map={map}
-                    mapHeight="100%"
-                    data={data}
-                  />
-                </div>
-                <div className='legend-wrapper' hidden={styleDisplayMode !== 'Legend'}>
-                  <h2>{locale.legend}</h2>
-                  <div id="legend"></div>
-                </div>
+              </GeoStylerContext.Provider>
+            ) : (
+              <Style
+                style={style}
+                data={data}
+                onStyleChange={(style: GsStyle) => {
+                  this.setState({style});
+                }}
+                iconLibraries={iconLibraryConfig}
+                compact={true}
+                ruleRendererType={ruleRendererType}
+                sldRendererProps={{
+                  wmsBaseUrl: 'https://ows-demo.terrestris.de/geoserver/ows?',
+                  layer: 'terrestris:bundeslaender'
+                }}
+              />
+            )}
+          </div>
+          <div className="right-wrapper">
+          <Form layout="inline" className='display-radio'>
+            <Form.Item label="Display">
+                <Radio.Group
+                  className="renderer-select"
+                  onChange={this.onStyleModeChange}
+                  value={styleDisplayMode}
+                >
+                  <Radio.Button value="Split">{locale.splitView}</Radio.Button>
+                  <Radio.Button value="Code">{locale.codeEditor}</Radio.Button>
+                  <Radio.Button value="Map">{locale.previewMap}</Radio.Button>
+                  <Radio.Button value="Legend">{locale.legend}</Radio.Button>
+                </Radio.Group>
+              </Form.Item>
+            </Form>
+            {/* <Collapse defaultActiveKey={['code-editor']}> */}
+              {/* <Collapse.Panel header={locale.codeEditor} key="code-editor"> */}
+            <div className="code-display-container">
+              <div hidden={styleDisplayMode !== 'Code' && styleDisplayMode !== 'Split'}>
+                <CodeEditor
+                  style={style}
+                  parsers={[
+                    this._mapBoxStyleParser,
+                    this._qgisParser,
+                    this._sldStyleParser,
+                    this._sldStyleParserSE
+                  ]}
+                  defaultParser={this._sldStyleParser}
+                  onStyleChange={(style: GsStyle) => {
+                    this.setState({style});
+                  }}
+                  showSaveButton={true}
+                  showCopyButton={true}
+                />
+              </div>
+              <div hidden={styleDisplayMode !== 'Map' && styleDisplayMode !== 'Split'}>
+                <p className='preview-map-info'>{locale.previewMapDataProjection}</p>
+                <PreviewMap
+                  style={style}
+                  map={map}
+                  mapHeight="100%"
+                  data={data}
+                />
+              </div>
+              <div className='legend-wrapper' hidden={styleDisplayMode !== 'Legend'}>
+                <h2>{locale.legend}</h2>
+                <div id="legend"></div>
               </div>
             </div>
           </div>
           <ExamplesDialog
-            visible={examplesModalVisible}
+            open={examplesModalVisible}
             onOkClicked={this.onExampleSelected}
             width="50%"
           />
+          <footer className="gs-footer">
+            <span className="center-footer">
+              <a href="https://www.terrestris.de/en/impressum/">
+                Imprint
+              </a>
+              —
+              <a href="https://www.terrestris.de/en/datenschutzerklaerung">
+                Privacy Policy
+              </a>
+              —
+              <a href="https://github.com/geostyler/geostyler/releases/tag/v<%= htmlWebpackPlugin.options.geostylerVersion %>">
+                GeoStyler v{process.env.GEOSTYLER_VERSION}
+              </a>
+            </span>
+          </footer>
         </div>
       </ConfigProvider>
     );

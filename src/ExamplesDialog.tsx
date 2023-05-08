@@ -6,7 +6,7 @@ import {
 } from 'antd';
 import { Locale } from 'antd/lib/locale-provider/index';
 
-import './ExamplesDialog.css';
+import './ExamplesDialog.less';
 
 import circle from './assets/sample-styles/circle.json';
 import nestedFilter from './assets/sample-styles/nested-filter.json';
@@ -35,7 +35,7 @@ export interface ExamplesDialogLocale extends Locale {
 
 // default props
 interface ExamplesDialogDefaultProps extends Partial<ModalProps> {
-  visible: boolean;
+  open: boolean;
 }
 
 // non default props
@@ -94,7 +94,7 @@ class ExamplesDialog extends React.Component<ExamplesDialogProps, ExampleDialogS
   }
 
   public static defaultProps: ExamplesDialogDefaultProps = {
-    visible: false,
+    open: false,
   };
 
   public static componentName: string = 'ExamplesDialog';
@@ -121,7 +121,7 @@ class ExamplesDialog extends React.Component<ExamplesDialogProps, ExampleDialogS
 
   public render() {
     const {
-      visible,
+      open: open,
       onOkClicked,
       ...passThroughProps
     } = this.props;
@@ -156,7 +156,7 @@ class ExamplesDialog extends React.Component<ExamplesDialogProps, ExampleDialogS
             className="examples-dialog"
             {...passThroughProps}
             title={locale.examples}
-            visible={visible}
+            open={open}
             onOk={this.onOk}
             onCancel={() => onOkClicked()}
           >
