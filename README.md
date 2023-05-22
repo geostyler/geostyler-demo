@@ -16,3 +16,11 @@ To run it on your local machine:
 The demo application will be available under https://localhost:9090.
 
 You can also create a build by running `npm run build` and run a web browser in the `dist` folder (e.g. by running `python3 -m http.server 9000`) and you'll have the build available on http://localhost:9000.
+
+## <a name="funding"></a>Funding & financial sponsorship
+
+Maintenance and further development of this code can be funded through the
+[GeoStyler Open Collective](https://opencollective.com/geostyler). All contributions and
+expenses can transparently be reviewed by anyone; you see what we use the donated money for.
+Thank you for any financial support you give the GeoStyler project 💞
+
