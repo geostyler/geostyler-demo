@@ -1,10 +1,8 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 
 import {
-  ConfigProvider,
-  Modal
+  Modal, ModalProps
 } from 'antd';
-import { Locale } from 'antd/lib/locale-provider/index';
 
 import './ExamplesDialog.less';
 
@@ -15,11 +13,7 @@ import zoomBasedPoint from './assets/sample-styles/zoom-based-point.json';
 import alternatingLine from './assets/sample-styles/alternating-line.json';
 import raster from './assets/sample-styles/raster.json';
 
-import {
-  locale as GsLocale
-} from 'geostyler';
 import { Style } from 'geostyler-style';
-import { ModalProps } from 'antd/lib/modal';
 
 type ExampleStyle = {
   id: number,
@@ -28,143 +22,94 @@ type ExampleStyle = {
   style: Style
 };
 
-// i18n
-export interface ExamplesDialogLocale extends Locale {
-  examples: string;
-}
+const exampleStyles: ExampleStyle[] = [{
+  name: 'Basic Point',
+  id: 1,
+  description: '… the most simple example.',
+  style: circle as Style
+}, {
+  name: 'Basic Point',
+  id: 2,
+  description: '… with a nested Filter',
+  style: nestedFilter as Style
+}, {
+  name: 'Zoom based Point',
+  id: 3,
+  description: '… from GeoServer SLD Cookbook',
+  style: zoomBasedPoint as Style
+},{
+  name: 'Alternating Line',
+  id: 4,
+  description: '… from GeoServer SLD Cookbook',
+  style: alternatingLine as Style
+}, {
+  name: 'Classified Polygons',
+  id: 5,
+  description: '… for population. Created via classification tool.',
+  style: populationQuantiles as Style
+}, {
+  name: 'Raster ColorMap',
+  id: 6,
+  description: '… with a multi-color gradient from GeoServer SLD Cookbook',
+  style: raster as Style
+}];
 
-// default props
-interface ExamplesDialogDefaultProps extends Partial<ModalProps> {
-  open: boolean;
-}
-
-// non default props
-interface ExamplesDialogProps extends Partial<ExamplesDialogDefaultProps> {
+interface ExamplesDialogProps extends ModalProps {
+  open?: boolean;
   onOkClicked: (style?: Style) => void;
 }
 
-// state
-interface ExampleDialogState {
-  locale: ExamplesDialogLocale;
-  selectedStyleId?: number;
-  exampleStyles: ExampleStyle[];
-}
+export const ExamplesDialog: React.FC<ExamplesDialogProps> = ({
+  open = false,
+  onOkClicked,
+  ...passThroughProps
+}) => {
 
-class ExamplesDialog extends React.Component<ExamplesDialogProps, ExampleDialogState> {
+  const [selectedStyleId, setSelectedStyleId] = useState<number>();
 
-  constructor(props: ExamplesDialogProps) {
-    super(props);
-    this.state = {
-      exampleStyles: [{
-        name: 'Basic Point',
-        id: 1,
-        description: '… the most simple example.',
-        style: circle as Style
-      }, {
-        name: 'Basic Point',
-        id: 2,
-        description: '… with a nested Filter',
-        style: nestedFilter as Style
-      }, {
-        name: 'Zoom based Point',
-        id: 3,
-        description: '… from GeoServer SLD Cookbook',
-        style: zoomBasedPoint as Style
-      },{
-        name: 'Alternating Line',
-        id: 4,
-        description: '… from GeoServer SLD Cookbook',
-        style: alternatingLine as Style
-      }, {
-        name: 'Classified Polygons',
-        id: 5,
-        description: '… for population. Created via classification tool.',
-        style: populationQuantiles as Style
-      }, {
-        name: 'Raster ColorMap',
-        id: 6,
-        description: '… with a multi-color gradient from GeoServer SLD Cookbook',
-        style: raster as Style
-      }],
-      locale: {
-        examples: 'Examples',
-        ...GsLocale.en_US
-      }
-    };
-  }
-
-  public static defaultProps: ExamplesDialogDefaultProps = {
-    open: false,
-  };
-
-  public static componentName: string = 'ExamplesDialog';
-
-  onExampleClicked = (evt: React.MouseEvent<HTMLElement>) => {
+  const onExampleClicked = (evt: React.MouseEvent<HTMLElement>) => {
     const element: HTMLElement = evt.target as HTMLElement;
-    const selectedStyleId = parseInt(element.dataset.id as string, 10);
-    this.setState({selectedStyleId});
+    setSelectedStyleId(Number(element.dataset.id));
   }
 
-  onOk = () => {
-    const {
-      onOkClicked
-    } = this.props;
-    const {
-      exampleStyles,
-      selectedStyleId
-    } = this.state;
+  const onOk = () => {
     const selectedExampleStyle = exampleStyles.find(exampleStyle => exampleStyle.id === selectedStyleId);
     if (selectedExampleStyle && onOkClicked) {
       onOkClicked(selectedExampleStyle.style);
     }
   }
 
-  public render() {
-    const {
-      open: open,
-      onOkClicked,
-      ...passThroughProps
-    } = this.props;
-    const {
-      selectedStyleId,
-      exampleStyles,
-      locale
-    } = this.state;
-
-    const cards = exampleStyles!.map(exampleStyle => {
-      let className = 'example-card';
-      if (exampleStyle.id === selectedStyleId) {
-        className += ' selected';
-      }
-      return (
-        <div
-          data-id={exampleStyle.id}
-          className={className}
-          key={exampleStyle.name + exampleStyle.description}
-          onClick={this.onExampleClicked}
-          title={exampleStyle.description}
-        >
-          <span className="title">{exampleStyle.name}</span>
-          <div className="description">{exampleStyle.description}</div>
-        </div>
-      );
-    });
-
+  const cards = exampleStyles!.map(exampleStyle => {
+    let className = 'example-card';
+    if (exampleStyle.id === selectedStyleId) {
+      className += ' selected';
+    }
     return (
-      <ConfigProvider locale={locale}>
-          <Modal
-            className="examples-dialog"
-            {...passThroughProps}
-            title={locale.examples}
-            open={open}
-            onOk={this.onOk}
-            onCancel={() => onOkClicked()}
-          >
-            {cards}
-          </Modal>
-      </ConfigProvider>
+      <div
+        data-id={exampleStyle.id}
+        className={className}
+        key={exampleStyle.name + exampleStyle.description}
+        onClick={onExampleClicked}
+        title={exampleStyle.description}
+      >
+        <span className="title">{exampleStyle.name}</span>
+        <div className="description">{exampleStyle.description}</div>
+      </div>
     );
-  }
+  });
+
+  return (
+    <Modal
+      className="examples-dialog"
+      {...passThroughProps}
+      title={"Examples"}
+      open={open}
+      onOk={onOk}
+      onCancel={() => onOkClicked()}
+    >
+      {cards}
+    </Modal>
+  );
 }
 
 export default ExamplesDialog;

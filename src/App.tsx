@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 
 import {
   Switch,
@@ -7,11 +7,9 @@ import {
   notification,
   Radio
 } from 'antd';
-import ConfigProvider from 'antd/lib/config-provider';
 
 import {
-  Style as GsStyle,
-  StyleParser as GsStyleParser
+  Style as GsStyle
 } from 'geostyler-style';
 
 import {
@@ -31,11 +29,10 @@ import {
   Style,
   StyleLoader,
   PreviewMap,
-  GeoStylerLocale,
-  GeoStylerContext
+  GeoStylerContext,
+  CardStyle,
+  GeoStylerLocale
 } from 'geostyler';
-
-import CardStyle from 'geostyler/dist/Component/CardStyle/CardStyle';
 
 import logo from './assets/logo.svg';
 import './App.less';
@@ -50,9 +47,27 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 import QGISStyleParser from 'geostyler-qgis-parser';
 import { GeoStylerContextInterface } from 'geostyler/dist/context/GeoStylerContext/GeoStylerContext';
 
+const sldStyleParser = new SldStyleParser({
+  builderOptions: {
+    format: true
+  }
+});
+const sldStyleParserSE = new SldStyleParser({
+  sldVersion: '1.1.0',
+  builderOptions: {
+    format: true
+  }
+});
+sldStyleParserSE.title = 'SLD 1.1.0 - Symbology Encoding';
+const mapBoxStyleParser = new MapboxStyleParser({
+  pretty: true
+});
+const qgisParser = new QGISStyleParser();
+const geoJsonParser = new GeoJsonParser();
+const shapefileParser = new ShapefileParser();
+const wfsParser = new WfsParser();
 
-// i18n
-export interface AppLocale extends GeoStylerLocale {
+export interface AppLocale {
   codeEditor: string;
   cardLayout: string;
   examples: string;
@@ -65,380 +80,295 @@ export interface AppLocale extends GeoStylerLocale {
   previewMapDataProjection: string;
 }
 
-// default props
-interface DefaultAppProps {
-  styleParsers: GsStyleParser[];
-}
+const iconLibraries = [{
+  name: 'Traffic',
+  icons: [{
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
+    caption: 'Parking'
+  }, {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg',
+    caption: 'Highway'
+  }]
+}, {
+  name: 'GeoStyler',
+  icons: [{
+    src: 'https://raw.githubusercontent.com/geostyler/geostyler/master/public/logo.svg',
+    caption: 'GeoStyler Logo'
+  }]
+}];
 
-// non default props
-interface AppProps extends Partial<DefaultAppProps> {
-}
+export const App: React.FC = () => {
 
-// state
-interface AppState {
-  style: GsStyle;
-  data?: GsData;
-  locale: AppLocale & GeoStylerLocale;
-  cardLayout: boolean;
-  ruleRendererType?: 'SLD' | 'OpenLayers';
-  styleDisplayMode?: 'Map' | 'Code' | 'Split' | 'Legend';
-  examplesModalVisible: boolean;
-}
-
-class App extends React.Component<AppProps, AppState> {
-
-  private _sldStyleParser = new SldStyleParser({
-    builderOptions: {
-      format: true
-    }
+  const [locale, setLocale] = useState<GeoStylerLocale>(GsLocale.en_US);
+  const [appLocale, setAppLocale] = useState<AppLocale>({
+    codeEditor: 'Code Editor',
+    cardLayout: 'CardLayout (Beta)',
+    examples: 'Examples',
+    graphicalEditor: 'Graphical Editor',
+    language: 'Language',
+    legend: 'Legend',
+    splitView: 'Split View',
+    previewMap: 'Preview Map',
+    loadedSuccess: 'Loaded successfully!',
+    previewMapDataProjection: 'The sample data is expected in the projection EPSG:4326.'
   });
-
-  private _sldStyleParserSE = new SldStyleParser({
-    sldVersion: '1.1.0',
-    builderOptions: {
-      format: true
-    }
-  });
-
-  private _mapBoxStyleParser = new MapboxStyleParser({
-    pretty: true
-  });
-
-  private _qgisParser = new QGISStyleParser();
-
-  private _geoJsonParser = new GeoJsonParser();
-
-  private _shapefileParser = new ShapefileParser();
-
-  private _wfsParser = new WfsParser();
-
-  constructor(props: AppProps) {
-    super(props);
-    this._sldStyleParserSE.title = 'SLD 1.1.0 - Symbology Encoding';
-    this.state = {
-      locale: {
-        codeEditor: 'Code Editor',
-        cardLayout: 'CardLayout (Beta)',
-        examples: 'Examples',
-        graphicalEditor: 'Graphical Editor',
-        language: 'Language',
-        legend: 'Legend',
-        splitView: 'Split View',
-        previewMap: 'Preview Map',
-        loadedSuccess: 'Loaded successfully!',
-        previewMapDataProjection: 'The sample data is expected in the projection EPSG:4326.',
-        ...GsLocale.en_US
-      },
-      cardLayout: false,
-      ruleRendererType: 'SLD',
-      styleDisplayMode: 'Split',
-      examplesModalVisible: false,
-      style: {
-        name: 'GeoStyler Demo',
-        rules: [
+  const [cardLayout, setCardLayout] = useState<boolean>(false);
+  const [data, setData] = useState<GsData>();
+  const [ruleRendererType, setRuleRendererType] = useState<'SLD' | 'OpenLayers'>('OpenLayers');
+  const [styleDisplayMode, setStyleDisplayMode] = useState<'Map' | 'Code' | 'Split' | 'Legend'>('Split');
+  const [style, setStyle] = useState<GsStyle>({
+    name: 'GeoStyler Demo',
+    rules: [
+      {
+        name: 'Rule 1',
+        symbolizers: [
           {
-            name: 'Rule 1',
-            symbolizers: [
-              {
-                kind: 'Line',
-                color: '#ff0000',
-                width: 5
-              }
-            ]
+            kind: 'Line',
+            color: '#ff0000',
+            width: 5
           }
         ]
       }
-    };
+    ]
+  });
+  const [examplesModalVisible, setExamplesModalVisibile] = useState<boolean>(false);
+
+  const onRuleRendererChange = (e: any) => {
+    setRuleRendererType(e.target.value);
   }
 
-  public static componentName: string = 'App';
-
-  onRuleRendererChange = (e: any) => {
-    const ruleRendererType = e.target.value;
-    this.setState({ruleRendererType});
+  const onStyleModeChange = (e: any) => {
+    setStyleDisplayMode(e.target.value);
   }
 
-  onStyleModeChange = (e: any) => {
-    const styleDisplayMode = e.target.value;
-    this.setState({styleDisplayMode});
+  const onCardLayoutSwitchChange = (card: boolean) => {
+    setCardLayout(card);
   }
 
-  onCardLayoutSwitchChange = (cardLayout: boolean) => {
-    this.setState({cardLayout});
+  const onExamplesButtonClicked = () => {
+    setExamplesModalVisibile(!examplesModalVisible);
   }
 
-  onExamplesButtonClicked = () => {
-    const {
-      examplesModalVisible
-    } = this.state;
-    this.setState({
-      examplesModalVisible: !examplesModalVisible
-    });
-  }
-
-  onExampleSelected = (exampleStyle?: GsStyle) => {
+  const onExampleSelected = (exampleStyle?: GsStyle) => {
     if (exampleStyle) {
-      this.setState({
-        examplesModalVisible: false,
-        style: exampleStyle
-      })
-    } else {
-      this.setState({
-        examplesModalVisible: false
-      });
+      setStyle(exampleStyle);
     }
+    setExamplesModalVisibile(false);
   }
 
-  public render() {
-    const {
-      examplesModalVisible,
-      locale,
-      style,
-      data,
-      cardLayout,
-      ruleRendererType,
-      styleDisplayMode
-    } = this.state;
+  const legendRenderer = new LegendRenderer({
+    maxColumnWidth: 300,
+    maxColumnHeight: 300,
+    overflow: 'auto',
+    styles: [style],
+    size: [600, 300],
+    hideRect: true
+  });
+  const legendEl = document.getElementById("legend");
+  if (legendEl) {
+    legendRenderer.render(legendEl);
+  }
 
-    const appContext: GeoStylerContextInterface = {
-      composition: {
-        Renderer: {
-          rendererType: ruleRendererType
-        }
-      }
-    };
-
-    const legendRenderer = new LegendRenderer({
-      maxColumnWidth: 300,
-      maxColumnHeight: 300,
-      overflow: 'auto',
-      styles: [style],
-      size: [600, 300],
-      hideRect: true
-    });
-    const legendEl = document.getElementById("legend");
-    if (legendEl) {
-      legendRenderer.render(legendEl);
-    }
-
-    const iconLibraryConfig = [{
-      name: 'Traffic',
-      icons: [{
-        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
-        caption: 'Parking'
-      }, {
-        src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg',
-        caption: 'Highway'
-      }]
-    }, {
-      name: 'GeoStyler',
-      icons: [{
-        src: 'https://raw.githubusercontent.com/geostyler/geostyler/master/public/logo.svg',
-        caption: 'GeoStyler Logo'
-      }]
-    }];
-
-    const map = new OlMap({
-      layers: [
-        new OlLayerTile({
-          source: new OlSourceTileWMS({
-            url: 'https://sgx.geodatenzentrum.de/wms_topplus_open',
-            params: {
-              'LAYERS': 'web'
-            }
-          })
+  const map = new OlMap({
+    layers: [
+      new OlLayerTile({
+        source: new OlSourceTileWMS({
+          url: 'https://sgx.geodatenzentrum.de/wms_topplus_open',
+          params: {
+            'LAYERS': 'web'
+          }
         })
-      ],
-      target: 'map',
-      view: new OlView({
-        center: fromLonLat([-122.416667, 37.783333]),
-        zoom: 12
-      }),
-    });
+      })
+    ],
+    target: 'map',
+    view: new OlView({
+      center: fromLonLat([-122.416667, 37.783333]),
+      zoom: 12
+    }),
+  });
 
-    return (
-      <ConfigProvider locale={locale}>
-        <div className="app">
-          <header className="gs-header">
-            <span className="logo-title">
-              <img className="logo" src={logo} alt="logo"/>
-              <span className="app-title">GeoStyler</span>
-            </span>
-          </header>
-          <div className="gs-settings">
-            <Form layout="inline">
-              <Form.Item label={locale.language}>
-                <LanguageSwitcher onChange={(locale) => {
-                  this.setState({ locale });
-                }} />
-              </Form.Item>
-              <Form.Item label={locale.cardLayout}>
-                <Switch
-                  checked={cardLayout}
-                  onChange={this.onCardLayoutSwitchChange}
-                />
-              </Form.Item>
-              <Form.Item label="Symbolizer Renderer">
-                <Radio.Group
-                  className="renderer-select"
-                  onChange={this.onRuleRendererChange}
-                  value={ruleRendererType}
-                >
-                  <Radio.Button value="OpenLayers">OpenLayers</Radio.Button>
-                  <Radio.Button value="SLD">SLD</Radio.Button>
-                </Radio.Group>
-              </Form.Item>
-              <Form.Item>
-                <StyleLoader
-                  parsers={[
-                    this._mapBoxStyleParser,
-                    this._qgisParser,
-                    this._sldStyleParser,
-                    this._sldStyleParserSE
-                  ]}
-                  onStyleRead={(style: GsStyle) => {
-                    notification.success({
-                      message: locale.loadedSuccess
-                    });
-                    this.setState({style});
-                  }}
-                />
-              </Form.Item>
-              <Form.Item>
-                <DataLoader
-                  parsers={[
-                    this._geoJsonParser,
-                    this._wfsParser,
-                    this._shapefileParser
-                  ]}
-                  onDataRead={(data: GsData) => {
-                    notification.success({
-                      message: locale.loadedSuccess
-                    });
-                    this.setState({data});
-                  }}
-                  uploadButtonProps={{
-                    onRemove: () => {
-                      this.setState({
-                        data: undefined
-                      });
-                    }
-                  }}
-                />
-              </Form.Item>
-              <Form.Item>
-                <Button
-                  onClick={this.onExamplesButtonClicked}
-                >
-                  {locale.examples}
-                </Button>
-              </Form.Item>
-            </Form>
-          </div>
-          <div className="left-wrapper">
-            <h2>{locale.graphicalEditor}</h2>
-            {cardLayout ? (
-              <GeoStylerContext.Provider value={appContext}>
-                <CardStyle
-                  style={style}
-                  data={data}
-                  onStyleChange={(style: GsStyle) => {
-                    this.setState({style});
-                  }}
-                  iconLibraries={iconLibraryConfig}
-                />
-              </GeoStylerContext.Provider>
-            ) : (
-              <Style
-                style={style}
-                data={data}
-                onStyleChange={(style: GsStyle) => {
-                  this.setState({style});
-                }}
-                iconLibraries={iconLibraryConfig}
-                compact={true}
-                ruleRendererType={ruleRendererType}
-                sldRendererProps={{
-                  wmsBaseUrl: 'https://ows-demo.terrestris.de/geoserver/ows?',
-                  layer: 'terrestris:bundeslaender'
+  const ctx: GeoStylerContextInterface = {
+    composition: {
+      IconEditor: {
+        iconLibraries
+      },
+      Renderer: {
+        rendererType: ruleRendererType
+      }
+    },
+    data,
+    locale
+  };
+
+  return (
+    <GeoStylerContext.Provider value={ctx}>
+      <div className="app">
+        <header className="gs-header">
+          <span className="logo-title">
+            <img className="logo" src={logo} alt="logo" />
+            <span className="app-title">GeoStyler</span>
+          </span>
+        </header>
+        <div className="gs-settings">
+          <Form layout="inline">
+            <Form.Item label={appLocale.language}>
+              <LanguageSwitcher onChange={(newAppLocale, newLocale) => {
+                setAppLocale(newAppLocale);
+                setLocale(newLocale);
+              }} />
+            </Form.Item>
+            <Form.Item label={appLocale.cardLayout}>
+              <Switch
+                checked={cardLayout}
+                onChange={onCardLayoutSwitchChange}
+              />
+            </Form.Item>
+            <Form.Item label="Symbolizer Renderer">
+              <Radio.Group
+                className="renderer-select"
+                onChange={onRuleRendererChange}
+                value={ruleRendererType}
+              >
+                <Radio.Button value="OpenLayers">OpenLayers</Radio.Button>
+                <Radio.Button value="SLD">SLD</Radio.Button>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item>
+              <StyleLoader
+                parsers={[
+                  mapBoxStyleParser,
+                  qgisParser,
+                  sldStyleParser,
+                  sldStyleParserSE
+                ]}
+                onStyleRead={(newStyle: GsStyle) => {
+                  notification.success({
+                    message: appLocale.loadedSuccess
+                  });
+                  setStyle(newStyle);
                 }}
               />
-            )}
-          </div>
-          <div className="right-wrapper">
+            </Form.Item>
+            <Form.Item>
+              <DataLoader
+                parsers={[
+                  geoJsonParser,
+                  wfsParser,
+                  shapefileParser
+                ]}
+                onDataRead={(newData: GsData) => {
+                  notification.success({
+                    message: appLocale.loadedSuccess
+                  });
+                  setData(newData);
+                }}
+                uploadButtonProps={{
+                  onRemove: () => {
+                    setData(undefined);
+                  }
+                }}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Button
+                onClick={onExamplesButtonClicked}
+              >
+                {appLocale.examples}
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+        <div className="left-wrapper">
+          <h2>{appLocale.graphicalEditor}</h2>
+          {cardLayout ? (
+            <CardStyle
+              style={style}
+              onStyleChange={(newStyle: GsStyle) => {
+                console.log('cardstyle', newStyle);
+                setStyle(newStyle);
+              }}
+            />
+          ) : (
+            <Style
+              style={style}
+              onStyleChange={(newStyle: GsStyle) => {
+                console.log('style', JSON.stringify(newStyle));
+                setStyle(newStyle);
+              }}
+            />
+          )}
+        </div>
+        <div className="right-wrapper">
           <Form layout="inline" className='display-radio'>
             <Form.Item label="Display">
-                <Radio.Group
-                  className="renderer-select"
-                  onChange={this.onStyleModeChange}
-                  value={styleDisplayMode}
-                >
-                  <Radio.Button value="Split">{locale.splitView}</Radio.Button>
-                  <Radio.Button value="Code">{locale.codeEditor}</Radio.Button>
-                  <Radio.Button value="Map">{locale.previewMap}</Radio.Button>
-                  <Radio.Button value="Legend">{locale.legend}</Radio.Button>
-                </Radio.Group>
-              </Form.Item>
-            </Form>
-            {/* <Collapse defaultActiveKey={['code-editor']}> */}
-              {/* <Collapse.Panel header={locale.codeEditor} key="code-editor"> */}
-            <div className="code-display-container">
-              <div hidden={styleDisplayMode !== 'Code' && styleDisplayMode !== 'Split'}>
-                <CodeEditor
-                  style={style}
-                  parsers={[
-                    this._mapBoxStyleParser,
-                    this._qgisParser,
-                    this._sldStyleParser,
-                    this._sldStyleParserSE
-                  ]}
-                  defaultParser={this._sldStyleParser}
-                  onStyleChange={(style: GsStyle) => {
-                    this.setState({style});
-                  }}
-                  showSaveButton={true}
-                  showCopyButton={true}
-                />
-              </div>
-              <div hidden={styleDisplayMode !== 'Map' && styleDisplayMode !== 'Split'}>
-                <p className='preview-map-info'>{locale.previewMapDataProjection}</p>
-                <PreviewMap
-                  style={style}
-                  map={map}
-                  mapHeight="100%"
-                  data={data}
-                />
-              </div>
-              <div className='legend-wrapper' hidden={styleDisplayMode !== 'Legend'}>
-                <h2>{locale.legend}</h2>
-                <div id="legend"></div>
-              </div>
+              <Radio.Group
+                className="renderer-select"
+                onChange={onStyleModeChange}
+                value={styleDisplayMode}
+              >
+                <Radio.Button value="Split">{appLocale.splitView}</Radio.Button>
+                <Radio.Button value="Code">{appLocale.codeEditor}</Radio.Button>
+                <Radio.Button value="Map">{appLocale.previewMap}</Radio.Button>
+                <Radio.Button value="Legend">{appLocale.legend}</Radio.Button>
+              </Radio.Group>
+            </Form.Item>
+          </Form>
+          <div className="code-display-container">
+            <div hidden={styleDisplayMode !== 'Code' && styleDisplayMode !== 'Split'}>
+              <CodeEditor
+                style={style}
+                parsers={[
+                  mapBoxStyleParser,
+                  qgisParser,
+                  sldStyleParser,
+                  sldStyleParserSE
+                ]}
+                defaultParser={sldStyleParser}
+                onStyleChange={(newStyle: GsStyle) => {
+                  console.log('editor', newStyle);
+                  setStyle(newStyle);
+                }}
+                showSaveButton={true}
+                showCopyButton={true}
+              />
+            </div>
+            <div hidden={styleDisplayMode !== 'Map' && styleDisplayMode !== 'Split'}>
+              <p className='preview-map-info'>{appLocale.previewMapDataProjection}</p>
+              <PreviewMap
+                style={style}
+                map={map}
+                mapHeight="100%"
+              />
+            </div>
+            <div className='legend-wrapper' hidden={styleDisplayMode !== 'Legend'}>
+              <h2>{appLocale.legend}</h2>
+              <div id="legend"></div>
             </div>
           </div>
-          <ExamplesDialog
-            open={examplesModalVisible}
-            onOkClicked={this.onExampleSelected}
-            width="50%"
-          />
-          <footer className="gs-footer">
-            <span className="center-footer">
-              <a href="https://www.terrestris.de/en/impressum/">
-                Imprint
-              </a>
-              —
-              <a href="https://www.terrestris.de/en/datenschutzerklaerung">
-                Privacy Policy
-              </a>
-              —
-              <a href="https://github.com/geostyler/geostyler/releases/tag/v<%= htmlWebpackPlugin.options.geostylerVersion %>">
-                GeoStyler v{process.env.GEOSTYLER_VERSION}
-              </a>
-            </span>
-          </footer>
         </div>
-      </ConfigProvider>
-    );
-  }
+        <ExamplesDialog
+          open={examplesModalVisible}
+          onOkClicked={onExampleSelected}
+          width="50%"
+        />
+        <footer className="gs-footer">
+          <span className="center-footer">
+            <a href="https://www.terrestris.de/en/impressum/">
+              Imprint
+            </a>
+            —
+            <a href="https://www.terrestris.de/en/datenschutzerklaerung">
+              Privacy Policy
+            </a>
+            —
+            <a href="https://github.com/geostyler/geostyler/releases/tag/v<%= htmlWebpackPlugin.options.geostylerVersion %>">
+              GeoStyler v{process.env.GEOSTYLER_VERSION}
+            </a>
+          </span>
+        </footer>
+      </div>
+    </GeoStylerContext.Provider >
+  );
 }
 
 export default App;
