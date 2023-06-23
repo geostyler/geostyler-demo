@@ -61,6 +61,12 @@
  */
 
 /**
+ * @license qrcode.react
+ * Copyright (c) Paul O'Shannessy
+ * SPDX-License-Identifier: ISC
+ */
+
+/**
  * chroma.js - JavaScript library for color conversions
  *
  * Copyright (c) 2011-2019, Gregor Aisch
