@@ -9,11 +9,12 @@ import 'moment/locale/fr';
 import 'moment/locale/zh-cn';
 
 import {
+  GeoStylerLocale,
   locale as GsLocale,
 } from 'geostyler';
 
 export interface LanguageSwitcherProps {
-  onChange: (locale: AppLocale) => void;
+  onChange: (appLocale: AppLocale, locale: GeoStylerLocale) => void;
 }
 
 export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
@@ -31,9 +32,8 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
               splitView: 'Split View',
               previewMap: 'Preview Map',
               loadedSuccess: 'Loaded successfully!',
-              previewMapDataProjection: 'Projection of sample data is expected to be EPSG:4326',
-              ...GsLocale.en_US
-          });
+              previewMapDataProjection: 'Projection of sample data is expected to be EPSG:4326'
+          }, GsLocale.en_US);
           break;
         case 'de':
           onChange({
@@ -46,9 +46,8 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
               splitView: 'Geteilte Vorschau',
               previewMap: 'Vorschau Karte',
               loadedSuccess: 'Erfolgreich geladen!',
-              previewMapDataProjection: 'Die Beispieldaten werden in der Projektion EPSG:4326 erwartet.',
-              ...GsLocale.de_DE
-          });
+              previewMapDataProjection: 'Die Beispieldaten werden in der Projektion EPSG:4326 erwartet.'
+          }, GsLocale.de_DE);
           break;
         case 'es':
           onChange({
@@ -61,9 +60,8 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
               splitView: 'Vista partida',
               previewMap: 'Mapa de previsualización',
               loadedSuccess: 'Cargado con éxito!',
-              previewMapDataProjection: 'Los datos de la muestra se esperan en la proyección EPSG:4326.',
-              ...GsLocale.es_ES
-          });
+              previewMapDataProjection: 'Los datos de la muestra se esperan en la proyección EPSG:4326.'
+          }, GsLocale.es_ES);
           break;
         case 'fr':
           onChange({
@@ -76,9 +74,8 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
               legend: 'Légende',
               splitView: 'Vue partagée',
               previewMap: 'Carte de prévisualisation',
-              previewMapDataProjection: 'Les données d\'exemple sont attendues dans la projection EPSG:4326.',
-              ...GsLocale.fr_FR
-          });
+              previewMapDataProjection: 'Les données d\'exemple sont attendues dans la projection EPSG:4326.'
+          }, GsLocale.fr_FR);
           break;
         case 'ch-zn':
           onChange({
@@ -91,9 +88,8 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
               splitView: 'Split View',
               previewMap: '预览图',
               loadedSuccess: '成功加载',
-              previewMapDataProjection: '预计样本数据将在EPSG:4326的预测中出现。',
-              ...GsLocale.zh_CN
-          });
+              previewMapDataProjection: '预计样本数据将在EPSG:4326的预测中出现。'
+          }, GsLocale.zh_CN);
           break;
         default:
           onChange({
@@ -106,9 +102,8 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
               splitView: 'Split View',
               previewMap: 'Preview Map',
               loadedSuccess: 'Loaded successfully!',
-              previewMapDataProjection: 'string',
-              ...GsLocale.en_US
-          });
+              previewMapDataProjection: 'string'
+          }, GsLocale.en_US);
           break;
     }
   };
