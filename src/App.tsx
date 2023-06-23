@@ -160,7 +160,7 @@ export const App: React.FC = () => {
     maxColumnWidth: 300,
     maxColumnHeight: 300,
     overflow: 'auto',
-    styles: [style],
+    styles: [structuredClone(style)],
     size: [600, 300],
     hideRect: true
   });
@@ -283,18 +283,12 @@ export const App: React.FC = () => {
           {cardLayout ? (
             <CardStyle
               style={style}
-              onStyleChange={(newStyle: GsStyle) => {
-                console.log('cardstyle', newStyle);
-                setStyle(newStyle);
-              }}
+              onStyleChange={setStyle}
             />
           ) : (
             <Style
               style={style}
-              onStyleChange={(newStyle: GsStyle) => {
-                console.log('style', JSON.stringify(newStyle));
-                setStyle(newStyle);
-              }}
+              onStyleChange={setStyle}
             />
           )}
         </div>
@@ -324,10 +318,7 @@ export const App: React.FC = () => {
                   sldStyleParserSE
                 ]}
                 defaultParser={sldStyleParser}
-                onStyleChange={(newStyle: GsStyle) => {
-                  console.log('editor', newStyle);
-                  setStyle(newStyle);
-                }}
+                onStyleChange={setStyle}
                 showSaveButton={true}
                 showCopyButton={true}
               />
@@ -335,7 +326,7 @@ export const App: React.FC = () => {
             <div hidden={styleDisplayMode !== 'Map' && styleDisplayMode !== 'Split'}>
               <p className='preview-map-info'>{appLocale.previewMapDataProjection}</p>
               <PreviewMap
-                style={style}
+                style={structuredClone(style)}
                 map={map}
                 mapHeight="100%"
               />

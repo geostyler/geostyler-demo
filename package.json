@@ -8,7 +8,7 @@
     "@types/react-dom": "^18.2.6",
     "antd": "^5.6.2",
     "d3": "^7.8.5",
-    "geostyler": "^13.0.0",
+    "geostyler": "^13.0.1",
     "geostyler-geojson-parser": "^1.0.1",
     "geostyler-legend": "^4.0.0",
     "geostyler-mapbox-parser": "^4.0.0",
