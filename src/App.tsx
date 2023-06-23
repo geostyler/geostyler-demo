@@ -175,7 +175,7 @@ export const App: React.FC = () => {
         source: new OlSourceTileWMS({
           url: 'https://sgx.geodatenzentrum.de/wms_topplus_open',
           params: {
-            'LAYERS': 'web'
+            'LAYERS': 'web_light_grau'
           }
         })
       })
