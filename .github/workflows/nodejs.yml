@@ -19,7 +19,7 @@ jobs:
       env:
         CI: true
     - name: Deploy to GitHubPages
-      uses: JamesIves/github-pages-deploy-action@3.7.1
+      uses: JamesIves/github-pages-deploy-action@v4.4.3
       if: github.ref == 'refs/heads/master'
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
