@@ -194,6 +194,10 @@ export const App: React.FC = () => {
       },
       Renderer: {
         rendererType: ruleRendererType
+      },
+      SLDRenderer: {
+        wmsBaseUrl: 'https://ows-demo.terrestris.de/geoserver/ows?',
+        layer: 'terrestris:bundeslaender'
       }
     },
     data,
