@@ -356,7 +356,7 @@ export const App: React.FC = () => {
               Privacy Policy
             </a>
             —
-            <a href="https://github.com/geostyler/geostyler/releases/tag/v<%= htmlWebpackPlugin.options.geostylerVersion %>">
+            <a href={`https://github.com/geostyler/geostyler/releases/tag/v${process.env.GEOSTYLER_VERSION}`}>
               GeoStyler v{process.env.GEOSTYLER_VERSION}
             </a>
           </span>
