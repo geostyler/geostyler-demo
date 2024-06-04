@@ -112,7 +112,7 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
     <Select
       defaultValue={'en'}
       onChange={onLangChange}
-      showArrow={false}
+      suffixIcon={null}
       style={{
         width: '140px'
       }}
