@@ -34,9 +34,10 @@ import {
   GeoStylerLocale
 } from 'geostyler';
 
+// @ts-expect-error TODO fix declare module entry
 import logo from './assets/logo.svg';
 import './App.less';
-import ExamplesDialog from './ExamplesDialog';
+import { ExamplesDialog } from './ExamplesDialog';
 import LegendRenderer from 'geostyler-legend/dist/LegendRenderer/LegendRenderer';
 import OlMap from 'ol/Map';
 import OlView from 'ol/View';
@@ -356,8 +357,10 @@ export const App: React.FC = () => {
               Privacy Policy
             </a>
             —
-            <a href={`https://github.com/geostyler/geostyler/releases/tag/v${process.env.GEOSTYLER_VERSION}`}>
-              GeoStyler v{process.env.GEOSTYLER_VERSION}
+            {/** @ts-expect-error */}
+            <a href={`https://github.com/geostyler/geostyler/releases/tag/v${import.meta.env.GEOSTYLER_VERSION}`}>
+              {/** @ts-expect-error */}
+              GeoStyler v{import.meta.env.GEOSTYLER_VERSION}
             </a>
           </span>
         </footer>
