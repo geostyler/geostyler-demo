@@ -38,7 +38,6 @@ import {
 import logo from './assets/logo.svg';
 import './App.less';
 import { ExamplesDialog } from './ExamplesDialog';
-import LegendRenderer from 'geostyler-legend/dist/LegendRenderer/LegendRenderer';
 import OlMap from 'ol/Map';
 import OlView from 'ol/View';
 import OlLayerTile from 'ol/layer/Tile';
@@ -47,6 +46,7 @@ import { fromLonLat } from 'ol/proj';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import QGISStyleParser from 'geostyler-qgis-parser';
 import { GeoStylerContextInterface } from 'geostyler/dist/context/GeoStylerContext/GeoStylerContext';
+import { LegendRenderer } from 'geostyler-legend';
 
 const sldStyleParser = new SldStyleParser({
   builderOptions: {
