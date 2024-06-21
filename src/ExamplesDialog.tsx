@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 
 import {
   Modal, ModalProps
@@ -111,5 +112,3 @@ export const ExamplesDialog: React.FC<ExamplesDialogProps> = ({
     </Modal>
   );
 }
-
-export default ExamplesDialog;
