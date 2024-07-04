@@ -1,3 +1,10 @@
+## [1.0.0-next.2](https://github.com/geostyler/geostyler-demo/compare/v1.0.0-next.1...v1.0.0-next.2) (2024-07-04)
+
+
+### Bug Fixes
+
+* update geostyler & related dependencies ([adfc2d5](https://github.com/geostyler/geostyler-demo/commit/adfc2d54c7b0eed7a256dc363b3d070e4701ad53))
+
 ## 1.0.0-next.1 (2024-06-21)
 
 
