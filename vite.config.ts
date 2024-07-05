@@ -13,6 +13,7 @@ export default defineConfig({
     react(),
     VitePluginMetaEnv(metaEnv, 'import.meta.env'),
   ],
+  base: '/geostyler-demo',
   server: {
     host: '0.0.0.0',
   },
