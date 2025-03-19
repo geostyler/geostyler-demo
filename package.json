@@ -26,7 +26,8 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "vite build && copyfiles \"./public/**/*.png\" dist --up 1 && copyfiles \"./public/**/*.json\" dist --up 1"
+    "build": "vite build && copyfiles \"./public/**/*.png\" dist --up 1 && copyfiles \"./public/**/*.json\" dist --up 1",
+    "build-docker": "vite build --config vite.config.docker.ts && copyfiles \"./public/**/*.png\" dist --up 1 && copyfiles \"./public/**/*.json\" dist --up 1"
   },
   "eslintConfig": {
     "extends": "react-app"
