@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/geostyler/geostyler-demo/compare/v1.0.0...v1.0.1) (2025-03-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency antd to v5.22.0 ([#529](https://github.com/geostyler/geostyler-demo/issues/529)) ([e5a58c3](https://github.com/geostyler/geostyler-demo/commit/e5a58c36a4eb8bb1848a56cfb43743ba0598d059))
+* **deps:** update dependency geostyler-sld-parser to v6.1.1 ([80e3b94](https://github.com/geostyler/geostyler-demo/commit/80e3b9419064eb429f0f5ab0fae51181c64edab4))
+* fix base to run on gh-pages ([981ce0c](https://github.com/geostyler/geostyler-demo/commit/981ce0c83e9e36501f6c0fce0c5e8447e7208eef))
+
 ## 1.0.0 (2024-07-04)
 
 
