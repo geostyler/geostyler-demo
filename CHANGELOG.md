@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/geostyler/geostyler-demo/compare/v1.0.1...v1.0.2) (2025-06-03)
+
+
+### Bug Fixes
+
+* trigger release ([03cbe82](https://github.com/geostyler/geostyler-demo/commit/03cbe8212bcc6bd29a41be8c4201b2131e1ffc2f))
+
 ## [1.0.1](https://github.com/geostyler/geostyler-demo/compare/v1.0.0...v1.0.1) (2025-03-19)
 
 
