@@ -4,7 +4,7 @@
 
 [GeoStyler](https://github.com/geostyler/geostyler) Demo App. This application shows how to build a graphical style editor with different data and style formats.
 
-[Go To Live Demo](https://geostyler.github.io/geostyler-demo/)
+[Go To Live Demo](https://demo.geostyler.org)
 
 To run it on your local machine:
 
