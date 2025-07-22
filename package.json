@@ -1,6 +1,6 @@
 {
   "name": "geostyler-demo",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": ".",
   "type": "module",
   "dependencies": {

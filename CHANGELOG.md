@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/geostyler/geostyler-demo/compare/v1.0.2...v1.0.3) (2025-07-22)
+
+
+### Bug Fixes
+
+* add missing events dependency needed for xml2js on qgis parser ([b5bb447](https://github.com/geostyler/geostyler-demo/commit/b5bb447f68954f116b2a5a210a8d44deebcef602))
+
 ## [1.0.2](https://github.com/geostyler/geostyler-demo/compare/v1.0.1...v1.0.2) (2025-06-03)
 
 
