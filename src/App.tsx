@@ -197,8 +197,8 @@ export const App: React.FC = () => {
         rendererType: ruleRendererType
       },
       SLDRenderer: {
-        wmsBaseUrl: 'https://ows-demo.terrestris.de/geoserver/ows?',
-        layer: 'terrestris:bundeslaender'
+        wmsBaseUrl: 'https://data.geostyler.org/geoserver/ows?',
+        layer: 'osm:osm_roads'
       }
     },
     data,
