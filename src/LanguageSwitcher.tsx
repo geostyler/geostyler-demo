@@ -39,7 +39,7 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
       case 'de':
         onChange({
           codeEditor: 'Code Editor',
-          cardLayout: 'CardLayout (Beta)',
+          cardLayout: 'CardLayout',
           examples: 'Beispiele',
           graphicalEditor: 'Grafischer Editor',
           language: 'Sprache',
@@ -54,7 +54,7 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
       case 'es':
         onChange({
           codeEditor: 'Editor de código',
-          cardLayout: 'CardLayout (Beta)',
+          cardLayout: 'CardLayout',
           examples: 'Ejemplos',
           graphicalEditor: 'Editor gráfico',
           language: 'Idioma',
@@ -69,7 +69,7 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
       case 'fr':
         onChange({
           codeEditor: 'Éditeur de code',
-          cardLayout: 'CardLayout (Beta)',
+          cardLayout: 'CardLayout',
           examples: 'Exemples',
           graphicalEditor: 'Éditeur graphique',
           language: 'Langue',
@@ -84,7 +84,7 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
       case 'ch-zn':
         onChange({
           codeEditor: '代码编辑器',
-          cardLayout: 'CardLayout (Beta)',
+          cardLayout: 'CardLayout',
           examples: '例子',
           graphicalEditor: '图形编辑器',
           language: '语言',
@@ -99,7 +99,7 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ onChange }) => {
       default:
         onChange({
           codeEditor: 'Code Editor',
-          cardLayout: 'CardLayout (Beta)',
+          cardLayout: 'CardLayout',
           examples: 'Examples',
           graphicalEditor: 'Graphical Editor',
           language: 'Language',
