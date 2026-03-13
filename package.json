@@ -10,7 +10,7 @@
     "antd": "^5.18.0",
     "d3": "^7.9.0",
     "events": "^3.3.0",
-    "geostyler": "^17.0.0",
+    "geostyler": "^18.0.0",
     "geostyler-geojson-parser": "^2.0.0",
     "geostyler-legend": "^5.0.1",
     "geostyler-mapbox-parser": "^6.1.1",
