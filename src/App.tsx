@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import {
   Switch,
@@ -46,7 +46,9 @@ import { fromLonLat } from 'ol/proj';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import QGISStyleParser from 'geostyler-qgis-parser';
 import { GeoStylerContextInterface } from 'geostyler/dist/context/GeoStylerContext/GeoStylerContext';
+
 import { LegendRenderer } from 'geostyler-legend';
+import ErrorBoundary from './ErrorBoundary';
 
 const sldStyleParser = new SldStyleParser({
   builderOptions: {
@@ -79,6 +81,7 @@ export interface AppLocale {
   previewMap: string;
   loadedSuccess: string;
   previewMapDataProjection: string;
+  errorBoundaryDescription: string;
 }
 
 const iconLibraries = [{
@@ -103,7 +106,7 @@ export const App: React.FC = () => {
   const [locale, setLocale] = useState<GeoStylerLocale>(GsLocale.en_US);
   const [appLocale, setAppLocale] = useState<AppLocale>({
     codeEditor: 'Code Editor',
-    cardLayout: 'CardLayout (Beta)',
+    cardLayout: 'CardLayout',
     examples: 'Examples',
     graphicalEditor: 'Graphical Editor',
     language: 'Language',
@@ -111,12 +114,13 @@ export const App: React.FC = () => {
     splitView: 'Split View',
     previewMap: 'Preview Map',
     loadedSuccess: 'Loaded successfully!',
-    previewMapDataProjection: 'The sample data is expected in the projection EPSG:4326.'
+    previewMapDataProjection: 'The sample data is expected in the projection EPSG:4326.',
+    errorBoundaryDescription: 'Invalid geostyler-style. Can\'t render'
   });
   const [cardLayout, setCardLayout] = useState<boolean>(false);
   const [data, setData] = useState<GsData>();
   const [ruleRendererType, setRuleRendererType] = useState<'SLD' | 'OpenLayers'>('OpenLayers');
-  const [styleDisplayMode, setStyleDisplayMode] = useState<'Map' | 'Code' | 'Split' | 'Legend'>('Split');
+  const [styleDisplayMode, setStyleDisplayMode] = useState<'Code' | 'Map' | 'Legend'>('Code');
   const [style, setStyle] = useState<GsStyle>({
     name: 'GeoStyler Demo',
     rules: [
@@ -157,18 +161,19 @@ export const App: React.FC = () => {
     setExamplesModalVisibile(false);
   }
 
-  const legendRenderer = new LegendRenderer({
-    maxColumnWidth: 300,
-    maxColumnHeight: 300,
-    overflow: 'auto',
-    styles: [structuredClone(style)],
-    size: [600, 300],
-    hideRect: true
-  });
-  const legendEl = document.getElementById("legend");
-  if (legendEl) {
-    legendRenderer.render(legendEl);
-  }
+  const legendCallback = useCallback((element: HTMLDivElement | null) => {
+    if (element && styleDisplayMode === 'Legend') {
+      const legendRenderer = new LegendRenderer({
+        maxColumnWidth: 300,
+        maxColumnHeight: 300,
+        overflow: 'auto',
+        styles: [structuredClone(style)],
+        size: [600, 300],
+        hideRect: true
+      });
+      legendRenderer.render(element);
+    }
+  }, [style, styleDisplayMode]);
 
   const map = new OlMap({
     layers: [
@@ -217,10 +222,12 @@ export const App: React.FC = () => {
         <div className="gs-settings">
           <Form layout="inline">
             <Form.Item label={appLocale.language}>
-              <LanguageSwitcher onChange={(newAppLocale, newLocale) => {
-                setAppLocale(newAppLocale);
-                setLocale(newLocale);
-              }} />
+              <LanguageSwitcher
+                onChange={(newAppLocale, newLocale) => {
+                  setAppLocale(newAppLocale);
+                  setLocale(newLocale);
+                }}
+              />
             </Form.Item>
             <Form.Item label={appLocale.cardLayout}>
               <Switch
@@ -283,20 +290,22 @@ export const App: React.FC = () => {
             </Form.Item>
           </Form>
         </div>
-        <div className="left-wrapper">
-          <h2>{appLocale.graphicalEditor}</h2>
-          {cardLayout ? (
-            <CardStyle
-              style={style}
-              onStyleChange={setStyle}
-            />
-          ) : (
-            <Style
-              style={style}
-              onStyleChange={setStyle}
-            />
-          )}
-        </div>
+        <ErrorBoundary description={appLocale.errorBoundaryDescription}>
+          <div className="left-wrapper">
+            <h2>{appLocale.graphicalEditor}</h2>
+            {cardLayout ? (
+              <CardStyle
+                style={style}
+                onStyleChange={setStyle}
+              />
+            ) : (
+              <Style
+                style={style}
+                onStyleChange={setStyle}
+              />
+            )}
+          </div>
+        </ErrorBoundary>
         <div className="right-wrapper">
           <Form layout="inline" className='display-radio'>
             <Form.Item label="Display">
@@ -305,7 +314,6 @@ export const App: React.FC = () => {
                 onChange={onStyleModeChange}
                 value={styleDisplayMode}
               >
-                <Radio.Button value="Split">{appLocale.splitView}</Radio.Button>
                 <Radio.Button value="Code">{appLocale.codeEditor}</Radio.Button>
                 <Radio.Button value="Map">{appLocale.previewMap}</Radio.Button>
                 <Radio.Button value="Legend">{appLocale.legend}</Radio.Button>
@@ -313,7 +321,7 @@ export const App: React.FC = () => {
             </Form.Item>
           </Form>
           <div className="code-display-container">
-            <div hidden={styleDisplayMode !== 'Code' && styleDisplayMode !== 'Split'}>
+            {styleDisplayMode === 'Code' && (
               <CodeEditor
                 style={style}
                 parsers={[
@@ -327,19 +335,23 @@ export const App: React.FC = () => {
                 showSaveButton={true}
                 showCopyButton={true}
               />
-            </div>
-            <div hidden={styleDisplayMode !== 'Map' && styleDisplayMode !== 'Split'}>
-              <p className='preview-map-info'>{appLocale.previewMapDataProjection}</p>
-              <PreviewMap
-                style={structuredClone(style)}
-                map={map}
-                mapHeight="100%"
-              />
-            </div>
-            <div className='legend-wrapper' hidden={styleDisplayMode !== 'Legend'}>
-              <h2>{appLocale.legend}</h2>
-              <div id="legend"></div>
-            </div>
+            )}
+            {styleDisplayMode === 'Map' && (
+              <div>
+                <p className='preview-map-info'>{appLocale.previewMapDataProjection}</p>
+                <PreviewMap
+                  style={structuredClone(style)}
+                  map={map}
+                  mapHeight="100%"
+                />
+              </div>
+            )}
+            {styleDisplayMode === 'Legend' && (
+              <div className='legend-wrapper' ref={legendCallback}>
+                <h2>{appLocale.legend}</h2>
+                <div id="legend"></div>
+              </div>
+            )}
           </div>
         </div>
         <ExamplesDialog
