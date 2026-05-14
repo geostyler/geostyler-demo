@@ -12,7 +12,7 @@ RUN npm run build-docker
 
 ############
 
-FROM nginx:1.27.4-alpine AS runner
+FROM nginx:1.31.0-alpine AS runner
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
