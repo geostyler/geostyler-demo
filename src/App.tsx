@@ -87,7 +87,7 @@ export interface AppLocale {
 const iconLibraries = [{
   name: 'Traffic',
   icons: [{
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/250px-Parking_icon.svg.png',
     caption: 'Parking'
   }, {
     src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg',
