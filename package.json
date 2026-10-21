@@ -25,6 +25,10 @@
     "react-dom": "^19.2.4",
     "typescript": "^5.9.3"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geostyler/geostyler-demo.git"
+  },
   "scripts": {
     "start": "vite",
     "build": "vite build && copyfiles \"./public/**/*.png\" dist --up 1 && copyfiles \"./public/**/*.json\" dist --up 1",
@@ -40,15 +44,15 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@vitejs/plugin-react": "^4.3.1",
     "conventional-changelog-conventionalcommits": "^7.0.2",
     "copyfiles": "^2.4.1",
     "less": "^4.9.1",
-    "semantic-release": "^24.0.0",
+    "semantic-release": "^25.0.9",
     "tslib": "2.6.2",
     "vite": "^5.4.21",
     "vite-plugin-meta-env": "^1.0.2"
