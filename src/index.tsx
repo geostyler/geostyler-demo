@@ -4,6 +4,7 @@ import App from './App';
 
 import './index.less';
 import 'antd/dist/reset.css';
+import 'geostyler/dist/index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
