@@ -1,3 +1,24 @@
+## <small>1.0.4 (2026-11-03)</small>
+
+* Merge pull request #581 from geostyler/dependabot/npm_and_yarn/vite-5.4.21 ([5eafd50](https://github.com/geostyler/geostyler-demo/commit/5eafd50)), closes [#581](https://github.com/geostyler/geostyler-demo/issues/581)
+* Merge pull request #582 from geostyler/dependabot/npm_and_yarn/js-yaml-4.1.1 ([94ee49a](https://github.com/geostyler/geostyler-demo/commit/94ee49a)), closes [#582](https://github.com/geostyler/geostyler-demo/issues/582)
+* Merge pull request #592 from geostyler/updates ([ea4bc94](https://github.com/geostyler/geostyler-demo/commit/ea4bc94)), closes [#592](https://github.com/geostyler/geostyler-demo/issues/592)
+* Merge pull request #600 from geostyler/renovate/nginx-1.x ([26489e3](https://github.com/geostyler/geostyler-demo/commit/26489e3)), closes [#600](https://github.com/geostyler/geostyler-demo/issues/600)
+* Merge pull request #612 from chrismayer/fix-parking-icon ([535fba4](https://github.com/geostyler/geostyler-demo/commit/535fba4)), closes [#612](https://github.com/geostyler/geostyler-demo/issues/612)
+* Merge pull request #618 from jansule/updates ([b53e1e7](https://github.com/geostyler/geostyler-demo/commit/b53e1e7)), closes [#618](https://github.com/geostyler/geostyler-demo/issues/618)
+* ci: use shared workflows and fix release ([3d9a1ea](https://github.com/geostyler/geostyler-demo/commit/3d9a1ea))
+* chore: remove 'beta' from cardlayout label ([55a9889](https://github.com/geostyler/geostyler-demo/commit/55a9889))
+* chore: update geostyler libs ([5e1127e](https://github.com/geostyler/geostyler-demo/commit/5e1127e))
+* chore(deps): update cycjimmy/semantic-release-action action to v4.1.1 (#552) ([6f89126](https://github.com/geostyler/geostyler-demo/commit/6f89126)), closes [#552](https://github.com/geostyler/geostyler-demo/issues/552)
+* chore(deps): update dependency @vitejs/plugin-react to v4.3.4 (#553) ([1a5941f](https://github.com/geostyler/geostyler-demo/commit/1a5941f)), closes [#553](https://github.com/geostyler/geostyler-demo/issues/553)
+* chore(deps): update nginx docker tag to v1.31.2 ([02b93bd](https://github.com/geostyler/geostyler-demo/commit/02b93bd))
+* fix: parking icon URL ([68fb42c](https://github.com/geostyler/geostyler-demo/commit/68fb42c))
+* fix: update dependencies and add ErrorBoundary ([ff60214](https://github.com/geostyler/geostyler-demo/commit/ff60214))
+* fix: use GeoStyler geoserver url (#585) ([9445edd](https://github.com/geostyler/geostyler-demo/commit/9445edd)), closes [#585](https://github.com/geostyler/geostyler-demo/issues/585)
+* fix: use SVG parking icon ([bbccc07](https://github.com/geostyler/geostyler-demo/commit/bbccc07))
+* build(deps-dev): bump js-yaml from 4.1.0 to 4.1.1 ([195d955](https://github.com/geostyler/geostyler-demo/commit/195d955))
+* build(deps-dev): bump vite from 5.3.1 to 5.4.21 ([d62feb8](https://github.com/geostyler/geostyler-demo/commit/d62feb8))
+
 ## [1.0.3](https://github.com/geostyler/geostyler-demo/compare/v1.0.2...v1.0.3) (2025-07-22)
 
 
