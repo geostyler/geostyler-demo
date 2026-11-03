@@ -10,20 +10,24 @@
     "antd": "^5.18.0",
     "d3": "^7.9.0",
     "events": "^3.3.0",
-    "geostyler": "^18.3.1",
+    "geostyler": "^18.6.0",
     "geostyler-geojson-parser": "^2.0.0",
     "geostyler-legend": "^5.2.1",
     "geostyler-mapbox-parser": "^6.2.0",
     "geostyler-qgis-parser": "^4.1.0",
     "geostyler-shapefile-parser": "^2.0.0",
-    "geostyler-sld-parser": "^8.4.0",
-    "geostyler-style": "^11.0.2",
+    "geostyler-sld-parser": "^9.1.0",
+    "geostyler-style": "^13.1.0",
     "geostyler-wfs-parser": "^3.0.1",
     "moment": "^2.30.1",
     "ol": "^10.8.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "typescript": "^5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geostyler/geostyler-demo.git"
   },
   "scripts": {
     "start": "vite",
@@ -40,14 +44,15 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@vitejs/plugin-react": "^4.3.1",
     "conventional-changelog-conventionalcommits": "^7.0.2",
     "copyfiles": "^2.4.1",
-    "semantic-release": "^24.0.0",
+    "less": "^4.9.1",
+    "semantic-release": "^25.0.9",
     "tslib": "2.6.2",
     "vite": "^5.4.21",
     "vite-plugin-meta-env": "^1.0.2"
