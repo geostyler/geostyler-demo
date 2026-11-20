@@ -1,3 +1,14 @@
+## <small>1.0.5 (2026-11-20)</small>
+
+* Merge pull request #615 from geostyler/renovate/nginx-1.x ([5e15cbd](https://github.com/geostyler/geostyler-demo/commit/5e15cbd)), closes [#615](https://github.com/geostyler/geostyler-demo/issues/615)
+* Merge pull request #622 from geostyler/renovate/geostyler-sld-parser-9.x-lockfile ([37d57e0](https://github.com/geostyler/geostyler-demo/commit/37d57e0)), closes [#622](https://github.com/geostyler/geostyler-demo/issues/622)
+* Merge pull request #626 from jansule/strip-v ([527da2d](https://github.com/geostyler/geostyler-demo/commit/527da2d)), closes [#626](https://github.com/geostyler/geostyler-demo/issues/626)
+* Merge pull request #630 from geostyler/jansule-patch-2 ([62d3353](https://github.com/geostyler/geostyler-demo/commit/62d3353)), closes [#630](https://github.com/geostyler/geostyler-demo/issues/630)
+* fix: trigger new release ([fc39c2f](https://github.com/geostyler/geostyler-demo/commit/fc39c2f))
+* chore(deps): update dependency geostyler-sld-parser to v9.2.0 ([a6c5c12](https://github.com/geostyler/geostyler-demo/commit/a6c5c12))
+* chore(deps): update nginx docker tag to v1.31.9 ([0311fe3](https://github.com/geostyler/geostyler-demo/commit/0311fe3))
+* ci: strip v from tag for docker release ([46202c9](https://github.com/geostyler/geostyler-demo/commit/46202c9))
+
 ## <small>1.0.4 (2026-11-03)</small>
 
 * Merge pull request #581 from geostyler/dependabot/npm_and_yarn/vite-5.4.21 ([5eafd50](https://github.com/geostyler/geostyler-demo/commit/5eafd50)), closes [#581](https://github.com/geostyler/geostyler-demo/issues/581)
