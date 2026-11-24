@@ -19,7 +19,7 @@
     "geostyler-sld-parser": "^9.1.0",
     "geostyler-style": "^13.1.0",
     "geostyler-wfs-parser": "^3.0.1",
-    "moment": "^2.30.1",
+    "moment": "^2.31.0",
     "ol": "^10.8.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
